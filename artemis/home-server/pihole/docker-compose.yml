@@ -3,10 +3,8 @@ services:
   pihole:
     container_name: Pi-hole
     image: pihole/pihole:latest
-    security_opt:
-      - no-new-privileges:true
     restart: unless-stopped
-    command: pihole -g -r recreate
+    # command: pihole -g -r recreate
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
