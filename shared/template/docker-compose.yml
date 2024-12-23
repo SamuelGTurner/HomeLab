@@ -1,6 +1,4 @@
-
 services:
-  
   # Template
   template:
     container_name: Template
@@ -25,15 +23,3 @@ services:
       # HTTP Services
       traefik.http.routers.template.service: template-svc
       traefik.http.services.template-svc.loadbalancer.server.port: 9999
- 
-
-networks:
-  reverse_proxy_private:
-    external:
-      true
-  
-  # reverse_proxy_public:
-  #   external:
-  #     true
-
-

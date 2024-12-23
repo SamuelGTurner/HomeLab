@@ -29,8 +29,3 @@ services:
       traefik.http.services.pihole-svc.loadbalancer.server.port: 80
     profiles:
       - prod
-
-networks:
-  reverse_proxy_private:
-    external:
-      true
