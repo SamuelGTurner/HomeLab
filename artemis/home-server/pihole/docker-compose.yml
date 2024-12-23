@@ -18,8 +18,8 @@ services:
       - "53:53/udp"
     environment:
       TZ: ${TZ}
-      WEBPASSWORD: ${WEBPASSWORD}
-      FTLCONF_LOCAL_IPV4: ${FTLCONF_LOCAL_IPV4}
+      WEBPASSWORD: ${PIHOLE_PASSWORD}
+      FTLCONF_LOCAL_IPV4: ${PIHOLE_IP}
     labels:
       traefik.enable: true
       # HTTP Routers
