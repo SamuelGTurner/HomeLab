@@ -4,9 +4,9 @@ services:
     container_name: Pagermon
     image: pagermon/pagermon:${PAGERMON_IMAGE_VERSION}
     restart: unless-stopped
-    # volumes:
-    #   - ./config:/config
-    #   - ./themes:/themes
+    volumes:
+      - ./config:/config
+      - ./themes:/themes
     networks:
       reverse_proxy_private:
       pagermon:
