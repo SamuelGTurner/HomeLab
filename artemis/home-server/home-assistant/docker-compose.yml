@@ -9,6 +9,8 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
     network_mode: host
+    ports:
+      - "8123:8123"
     environment:
       - TZ=$TZ
     labels:
