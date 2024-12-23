@@ -18,7 +18,7 @@ services:
     # ports:
     #     - "9000:9000"
     environment:
-      - TZ=$TZ
+      TZ: ${TZ}
     labels:
       portainer.hide: true
       traefik.enable: true

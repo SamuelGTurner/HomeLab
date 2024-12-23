@@ -8,3 +8,4 @@ networks:
 
 include:
   - it-tools/docker-compose.yml
+  - pihole/docker-compose.yml
