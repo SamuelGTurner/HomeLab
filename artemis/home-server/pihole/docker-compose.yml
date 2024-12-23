@@ -4,7 +4,6 @@ services:
     container_name: Pi-hole
     image: pihole/pihole:latest
     restart: unless-stopped
-    # command: pihole -g -r recreate
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
