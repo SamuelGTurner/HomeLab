@@ -6,7 +6,7 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
-    # command:
+    command: pihole -g -r recreate
     volumes:
       - './etc-pihole:/etc/pihole'
       - './etc-dnsmasq.d:/etc/dnsmasq.d'
