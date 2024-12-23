@@ -1,0 +1,35 @@
+services:
+  # Pagermon
+  pagermon:
+    container_name: Pagermon
+    image: pagermon/pagermon:${PAGERMON_IMAGE_VERSION}
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    volumes:
+      - ./config:/config
+      - ./themes:/themes
+    networks:
+      reverse_proxy_private:
+      pagermon:
+    environment:
+      APP_NAME: COACS
+      HOSTNAME: pagermon.${DOMAINNAME}
+      TZ: $TZ
+    labels:
+      traefik.enable: true
+      # HTTP Routers
+      traefik.http.routers.pagermon.entrypoints: web
+      traefik.http.routers.pagermon.rule: Host(`pagermon.${DOMAINNAME}`)
+      # Middlewares
+      # traefik.http.routers.pagermon.middlewares: chain-oauth@file
+      # HTTP Services
+      traefik.http.routers.pagermon.service: pagermon-svc
+      traefik.http.services.pagermon-svc.loadbalancer.server.port: 3000
+    profiles:
+      - prod
+      - dev
+
+networks:
+  pagermon:
+    name: pagermon

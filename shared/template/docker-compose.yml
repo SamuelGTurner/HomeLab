@@ -7,12 +7,13 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     # command:
-    # volumes:
+    volumes:
+      - ./template:/template
     networks:
       reverse_proxy_private:
     # ports:
     environment:
-      - TZ=$TZ
+      TZ: $TZ
     labels:
       traefik.enable: true
       # HTTP Routers
@@ -23,3 +24,6 @@ services:
       # HTTP Services
       traefik.http.routers.template.service: template-svc
       traefik.http.services.template-svc.loadbalancer.server.port: 9999
+    profiles:
+      - prod
+      - dev
