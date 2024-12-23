@@ -3,8 +3,6 @@ services:
   pagermon:
     container_name: Pagermon
     image: pagermon/pagermon:${PAGERMON_IMAGE_VERSION}
-    security_opt:
-      - no-new-privileges:true
     restart: unless-stopped
     volumes:
       - ./config:/config
