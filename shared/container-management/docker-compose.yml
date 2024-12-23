@@ -146,4 +146,8 @@ networks:
 volumes:
   portainer_data:
     name: portainer_data
+    driver: local
+    driver_opts:
+      device: /home/artemis/portainer_data
+      o: bind
      
