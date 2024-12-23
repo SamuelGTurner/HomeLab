@@ -1,0 +1,10 @@
+name: HomeServer
+
+networks:
+  reverse_proxy_private:
+    external: true
+  reverse_proxy_public:
+    external: true
+
+include:
+  - it-tools/docker-compose.yml
