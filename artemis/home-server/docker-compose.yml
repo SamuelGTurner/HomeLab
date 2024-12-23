@@ -9,3 +9,4 @@ networks:
 include:
   - it-tools/docker-compose.yml
   - pihole/docker-compose.yml
+  - home-assistant/docker-compose.yml
