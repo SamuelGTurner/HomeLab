@@ -12,7 +12,7 @@ services:
     command: -H tcp://socket-proxy:2375
     volumes:
         - portainer_data:/data
-        - /var/run/docker.sock:/var/run/docker.sock:ro
+        # - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       docker_socket_proxy:
       reverse_proxy_private:
