@@ -30,3 +30,5 @@ services:
       traefik.http.services.pihole-svc.loadbalancer.server.port: 80
     profiles:
       - prod
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
