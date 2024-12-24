@@ -10,6 +10,7 @@ services:
     hostname: pihole.${DOMAINNAME}
     networks:
       reverse_proxy_private:
+        ipv4_address: ${PIHOLE_IP}
     ports:
       - "53:53/tcp"
       - "53:53/udp"
