@@ -102,6 +102,9 @@ services:
       - SECRETS=0
       - POST=1
       # Not always needed
+      - ALLOW_START=1
+      - ALLOW_STOP=1
+      - ALLOW_RESTARTS=1
       - BUILD=0
       - COMMIT=0
       - CONFIGS=0
