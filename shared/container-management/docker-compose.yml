@@ -78,7 +78,7 @@ services:
   # Docker Socket Proxy
   socket-proxy:
     container_name: socket-proxy
-    image: tecnativa/docker-socket-proxy:latest
+    image: lscr.io/linuxserver/socket-proxy:latest
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
