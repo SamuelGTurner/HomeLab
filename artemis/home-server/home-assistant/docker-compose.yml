@@ -24,4 +24,3 @@ services:
       traefik.http.services.home-assistant-svc.loadbalancer.server.port: 8123
     profiles:
       - prod
-      - dev
