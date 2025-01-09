@@ -1,7 +1,7 @@
 services:
   # home-assistant
   home-assistant:
-    container_name: Home-Assistant
+    container_name: "Home Assistant"
     image: "ghcr.io/home-assistant/home-assistant:stable"
     restart: unless-stopped
     volumes:
@@ -16,7 +16,7 @@ services:
       traefik.enable: true
       # HTTP Routers
       traefik.http.routers.home-assistant.entrypoints: web
-      traefik.http.routers.home-assistant.rule: Host(`home-assistant.${DOMAINNAME}`)
+      traefik.http.routers.home-assistant.rule: Host(`homeassistant.${DOMAINNAME}`)
       # Middlewares
       # traefik.http.routers.home-assistant.middlewares: chain-oauth@file
       # HTTP Services
