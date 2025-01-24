@@ -9,6 +9,7 @@ services:
     privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
+      - ais-catcher_config:/config
     networks:
       reverse_proxy_private:
     labels:
