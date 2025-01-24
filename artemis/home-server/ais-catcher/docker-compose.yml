@@ -23,7 +23,8 @@ services:
       #
       #
       traefik.http.routers.ais-admin.entrypoints: web
-      traefik.http.routers.ais-admin.rule: Host(`ais.${DOMAINNAME}`) && PathPrefix(`/admin`)
+      traefik.http.routers.ais-admin.rule: Host(`ais-admin.${DOMAINNAME}`)
+      # traefik.http.routers.ais-admin.rule: Host(`ais.${DOMAINNAME}`) && PathPrefix(`/admin`)
       # Middlewares
       # traefik.http.routers.template.middlewares: chain-oauth@file
       # HTTP Services
