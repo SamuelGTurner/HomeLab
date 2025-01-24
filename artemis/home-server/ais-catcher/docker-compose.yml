@@ -3,9 +3,10 @@ services:
   ais-catcher:
     container_name: ais-catcher
     image: "ghcr.io/jvde-github/ais-catcher-control:edge"
-    security_opt:
-      - no-new-privileges:true
+    # security_opt:
+    #   - no-new-privileges:true
     restart: unless-stopped
+    privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
     networks:
