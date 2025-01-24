@@ -1,0 +1,33 @@
+services:
+  # ais-catcher
+  ais-catcher:
+    container_name: ais-catcher
+    image: "ghcr.io/jvde-github/ais-catcher-control:edge"
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    volumes:
+      - /dev/bus/usb:/dev/bus/usb
+    networks:
+      reverse_proxy_private:
+    labels:
+      traefik.enable: true
+      # HTTP Routers
+      traefik.http.routers.ais.entrypoints: web
+      traefik.http.routers.ais.rule: Host(`ais.${DOMAINNAME}`)
+      # Middlewares
+      # traefik.http.routers.template.middlewares: chain-oauth@file
+      # HTTP Services
+      traefik.http.routers.ais.service: ais-svc
+      traefik.http.services.ais-svc.loadbalancer.server.port: 8100
+      #
+      #
+      traefik.http.routers.ais-admin.entrypoints: web
+      traefik.http.routers.ais-admin.rule: Host(`ais.${DOMAINNAME}`) && Path(`/admin`)
+      # Middlewares
+      # traefik.http.routers.template.middlewares: chain-oauth@file
+      # HTTP Services
+      traefik.http.routers.ais-admin.service: ais-admin-svc
+      traefik.http.services.ais-admin-svc.loadbalancer.server.port: 8110
+    profiles:
+      - prod
