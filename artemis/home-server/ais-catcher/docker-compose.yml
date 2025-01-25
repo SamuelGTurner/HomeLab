@@ -10,6 +10,7 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - ais-catcher_config:/config
+      - /home/${LOCALUSER}/ais/webassets:/etc/AIS-catcher/webassets
     networks:
       reverse_proxy_private:
     labels:
