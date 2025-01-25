@@ -9,8 +9,8 @@ services:
     privileged: true
     volumes:
       - /dev/bus/usb:/dev/bus/usb
-      - ais-catcher_config:/config
-      - /home/${LOCALUSER}/ais/webassets:/etc/AIS-catcher/webassets
+      - ais-catcher-data:/etc/AIS-catcher
+      - /home/${LOCALUSER}/ais/webassets:/etc/webassets
     networks:
       reverse_proxy_private:
     labels:
@@ -37,6 +37,6 @@ services:
       - prod
 
 volumes:
-  ais-catcher_config:
-    name: ais-catcher_config
-    external: true
+  ais-catcher-data:
+    name: ais-catcher-data
+    # external: true
