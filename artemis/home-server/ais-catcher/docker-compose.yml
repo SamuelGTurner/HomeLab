@@ -38,3 +38,5 @@ services:
 
 volumes:
   ais-catcher_config:
+    name: ais-catcher_config
+    external: true
