@@ -1,0 +1,35 @@
+services:
+  jellyfin:
+    container_name: jellyfin
+    image: jellyfin/jellyfin
+    restart: 'unless-stopped'
+    network_mode: 'host'
+    volumes:
+      - jellyfin-config:/config
+      - jellyfin-cache:/cache
+      - type: bind
+        source: /mnt/RaspberryPi-HDD/videos/
+        target: /media
+    # Optional - may be necessary for docker healthcheck to pass if running in host network mode
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
+    labels:
+      traefik.enable: true
+      # HTTP Routers
+      traefik.http.routers.jellyfin.entrypoints: web
+      traefik.http.routers.jellyfin.rule: Host(`jellyfin.${DOMAINNAME}`)
+      # Middlewares
+      # traefik.http.routers.jellyfin.middlewares: chain-oauth@file
+      # HTTP Services
+      traefik.http.routers.jellyfin.service: jellyfin-svc
+      traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
+      traefik.docker.network: ${HA_NETWORK}
+    profiles:
+      - prod
+      - dev
+
+volumes:
+  jellyfin-config:
+    name: jellyfin-config
+  jellyfin-cache:
+    name: jellyfin-cache
