@@ -2,7 +2,7 @@ services:
   # Pi-hole - DNS Ad Block
   pihole:
     container_name: Pi-hole
-    image: pihole/pihole:latest
+    image: pihole/pihole:2024.07.0
     restart: unless-stopped
     volumes:
       - './etc-pihole:/etc/pihole'
