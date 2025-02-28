@@ -1,0 +1,10 @@
+name: DNS-Server
+
+networks:
+  reverse_proxy_private:
+    external: true
+  reverse_proxy_public:
+    external: true
+
+include:
+  - pihole/docker-compose.yml

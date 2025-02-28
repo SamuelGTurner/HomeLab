@@ -11,5 +11,4 @@ include:
   - home-assistant/docker-compose.yml
   - it-tools/docker-compose.yml
   - jellyfin/docker-compose.yml
-  - pihole/docker-compose.yml
   # - pagermon/docker-compose.yml
