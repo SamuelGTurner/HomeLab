@@ -5,7 +5,7 @@ services:
   # Container Management - Portainer CE
   container-management:
     container_name: Portainer-CE
-    image: portainer/portainer-ce:2.21.5
+    image: portainer/portainer-ce:lts
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
