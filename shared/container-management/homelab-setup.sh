@@ -66,7 +66,10 @@ main() {
     install_dependencies
 
     # Launch Container Mangement Stack
-    wget -qO- https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml?token=GHSAT0AAAAAAC3K2YL67PBOVABXKNASC72YZ6M3ORQ | docker compose -f - up -d
+    docker volume create portainer_data
+    docker volume rm portainer_data
+    docker volume create portainer_data
+    wget -qO- https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml?token=GHSAT0AAAAAAC3K2YL6USJYDXENITT6HZ5OZ6M3RBQ | docker compose -f - up -d
 
     apt autoclean -y
     apt autoremove -y
