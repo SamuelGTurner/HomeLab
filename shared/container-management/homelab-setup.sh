@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Constants
 readonly SCRIPT_NAME=$(basename "$0")
-readonly LOG_FILE="/var/log/${SCRIPT_NAME%.*}.log"
+readonly LOG_FILE="$HOME/log/${SCRIPT_NAME%.*}.log"
 readonly TMP_DIR=$(mktemp -d -t HomeLab-XXXXXX)
 
 # Logger function
