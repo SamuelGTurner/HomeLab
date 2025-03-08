@@ -3,9 +3,13 @@
 set -euo pipefail
 
 # Constants
-readonly SCRIPT_NAME=$(basename "$0")
-readonly LOG_FILE="${HOME}/log/${SCRIPT_NAME%.*}.log"
-readonly TMP_DIR=$(mktemp -d -t HomeLab-XXXXXX)
+if $(basename "$0") == "bash" then
+    readonly SCRIPT_NAME="HomeLabSetup"
+else
+    readonly SCRIPT_NAME=$(basename "$0")
+fi
+readonly LOG_FILE="/var/log/${SCRIPT_NAME%.*}.log"
+readonly TMP_DIR=$(mktemp -d -t HomeLabSetup-XXXXXX)
 
 # Logger function
 log() {
@@ -28,11 +32,6 @@ cleanup() {
 
 # Main function
 main() {
-    echo $HOME
-    echo $LOG_FILE
-    sudo touch "$LOG_FILE"
-    sudo chmod 666 "$LOG_FILE"  # Allows all users to write
-
     log "INFO" "Starting HomeLab Container Management installation script"
 
     trap cleanup EXIT
