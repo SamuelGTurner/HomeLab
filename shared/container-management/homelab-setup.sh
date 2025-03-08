@@ -28,6 +28,9 @@ cleanup() {
 
 # Main function
 main() {
+    sudo touch "$LOG_FILE"
+    sudo chmod 666 "$LOG_FILE"  # Allows all users to write
+
     log "INFO" "Starting HomeLab Container Management installation script"
 
     trap cleanup EXIT
