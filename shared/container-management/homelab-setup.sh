@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Constants
-if [$(basename "$0") == "bash"]
+if [ $(basename "$0") == "bash" ]
 then
     readonly SCRIPT_NAME="HomeLabSetup"
 else
