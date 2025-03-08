@@ -66,7 +66,10 @@ main() {
     install_dependencies
 
     # Launch Container Mangement Stack
-    # wget -qO- https://raw.githubusercontent.com/SamuelGTurner/HomeLab/main/shared/container-management/docker-compose.yml | docker compose -f - up -d
+    wget -qO- https://raw.githubusercontent.com/SamuelGTurner/HomeLab/main/shared/container-management/docker-compose.yml | docker compose -f - up -d
+
+    apt autoclean -y
+    apt autoremove -y
 }
 
 # Run the script
