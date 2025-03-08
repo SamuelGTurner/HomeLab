@@ -4,7 +4,7 @@ set -euo pipefail
 
 # Constants
 readonly SCRIPT_NAME=$(basename "$0")
-readonly LOG_FILE="$HOME/log/${SCRIPT_NAME%.*}.log"
+readonly LOG_FILE="${HOME}/log/${SCRIPT_NAME%.*}.log"
 readonly TMP_DIR=$(mktemp -d -t HomeLab-XXXXXX)
 
 # Logger function
@@ -28,6 +28,8 @@ cleanup() {
 
 # Main function
 main() {
+    echo $HOME
+    echo $LOG_FILE
     sudo touch "$LOG_FILE"
     sudo chmod 666 "$LOG_FILE"  # Allows all users to write
 
