@@ -3,12 +3,7 @@
 set -euo pipefail
 
 # Constants
-if [ $(basename "$0") == "bash" ]
-then
-    readonly SCRIPT_NAME="HomeLabSetup"
-else
-    readonly SCRIPT_NAME=$(basename "$0")
-fi
+readonly SCRIPT_NAME=$(basename "$0")
 readonly LOG_FILE="/var/log/${SCRIPT_NAME%.*}.log"
 readonly TMP_DIR=$(mktemp -d -t HomeLabSetup-XXXXXX)
 
