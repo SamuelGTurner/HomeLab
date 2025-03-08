@@ -16,8 +16,8 @@ services:
     networks:
       docker_socket_proxy:
       reverse_proxy_private:
-    # ports:
-    #     - "9000:9000"
+    ports:
+      - "9000:9000"
     environment:
       TZ: ${TZ}
     labels:
