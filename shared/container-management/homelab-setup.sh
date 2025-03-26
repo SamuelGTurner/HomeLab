@@ -31,7 +31,7 @@ enable_docker_prerequisites() {
     for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do apt remove -y $pkg; done
 
     local deps="ca-certificates curl"
-    log "INFO" "Installing build dependencies: $deps"
+    log "INFO" "Installing docker prerequisites: $deps"
     apt install -y $deps || error_exit "Failed to install docker prerequisites"
 
     # Add Docker's official GPG key:
