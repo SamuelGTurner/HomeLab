@@ -66,7 +66,7 @@ main() {
     install_dependencies
 
     # Create portainer volume if not exists
-    if [ "$(sudo docker volume ls -f name=portainer_data -q 2> /dev/null)" ]; then 
+    if [ ! "$(sudo docker volume ls -f name=portainer_data -q 2> /dev/null)" ]; then 
         docker volume create portainer_data
     fi
     
