@@ -19,7 +19,7 @@ services:
     ports:
       - "9000:9000"
     environment:
-      TZ: ${TZ}
+      TZ: ${TZ-Europe/London}
     labels:
       portainer.hide: true
       traefik.enable: true
@@ -63,7 +63,7 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     environment:
-      - TZ=$TZ
+      - TZ=${TZ-Europe/London}
     labels:
       portainer.hide: true
       traefik.enable: true
