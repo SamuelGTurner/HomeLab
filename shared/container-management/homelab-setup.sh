@@ -65,10 +65,12 @@ main() {
     enable_docker_prerequisites
     install_dependencies
 
+    # Create portainer volume if not exists
+    if [ "$(sudo docker volume ls -f name=portainer_data -q 2> /dev/null)" ]; then 
+        docker volume create portainer_data
+    fi
+    
     # Launch Container Mangement Stack
-    docker volume create portainer_data
-    docker volume rm portainer_data
-    docker volume create portainer_data
     curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - up -d
 
 }
