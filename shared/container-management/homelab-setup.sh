@@ -7,7 +7,9 @@ readonly SCRIPT_NAME=$(basename "$0")
 readonly LOG_FILE="/var/log/${SCRIPT_NAME%.*}.log"
 readonly TMP_DIR=$(mktemp -d -t HomeLabSetup-XXXXXX)
 readonly DOMAINNAME=$(hostname)".local"
-readonly DOCKERDIR=$(~/docker)
+readonly DOCKERDIRNAME="docker"
+readonly DOCKERDIR="~/${DOCKERDIRNAME}"
+
 
 # Logger function
 log() {
@@ -67,7 +69,8 @@ main() {
     enable_docker_prerequisites
     install_dependencies
 
-    mkdir -p $DOCKERDIR
+    cd ~
+    mkdir -p "$DOCKERDIRNAME"
 
     # Create portainer volume if not exists
     if [ ! "$(docker volume ls -f name=portainer_data -q 2> /dev/null)" ]; then 
