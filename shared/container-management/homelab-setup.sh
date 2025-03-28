@@ -6,7 +6,7 @@ set -euo pipefail
 readonly SCRIPT_NAME=$(basename "$0")
 readonly LOG_FILE="/var/log/${SCRIPT_NAME%.*}.log"
 readonly TMP_DIR=$(mktemp -d -t HomeLabSetup-XXXXXX)
-readonly DOMAINNAME=$(hostname)".local"
+readonly DOMAINNAME=$(hostname | tr '[:upper:]' '[:lower:]').local
 readonly DOCKERDIRNAME="docker"
 readonly DOCKERDIR="/home/dev/${DOCKERDIRNAME}"
 
@@ -81,16 +81,9 @@ main() {
     # Launch Container Mangement Stack
     export DOCKERDIR
     export DOMAINNAME
-    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - up -d
+    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - up -d --pull always
 
 }
 
 # Run the script
 main "$@"
-
-# readonly DOMAINNAME=$(hostname)".local"
-# readonly DOCKERDIRNAME="docker"
-# readonly DOCKERDIR="~/${DOCKERDIRNAME}"
-# export DOCKERDIR
-# export DOMAINNAME
-# curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - config
