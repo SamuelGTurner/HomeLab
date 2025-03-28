@@ -7,7 +7,6 @@ services:
     container_name: Portainer-CE
     image: portainer/portainer-ce:lts
     depends_on:
-      - reverse-proxy
       - socket-proxy
     security_opt:
       - no-new-privileges:true
@@ -42,6 +41,7 @@ services:
     image: traefik:latest
     depends_on:
       - socket-proxy
+      - container-management
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
