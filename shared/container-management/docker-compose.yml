@@ -39,7 +39,7 @@ services:
   # Reverse Proxy - Traefik
   reverse-proxy:
     container_name: Traefik
-    image: traefik:v3.2
+    image: traefik:latest
     depends_on:
       - socket-proxy
     security_opt:
