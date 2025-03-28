@@ -10,7 +10,7 @@
 ```sh
 sudo apt update && sudo apt install curl -y
 
-sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/homelab-setup.sh) _ -p"
+sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/shared/container-management/homelab-setup.sh) _ -p"
 
 ```
 
