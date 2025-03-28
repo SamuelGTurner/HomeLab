@@ -70,6 +70,7 @@ main() {
     install_dependencies
 
     cd ~
+    echo "$DOCKERDIRNAME"
     mkdir -p "$DOCKERDIRNAME"
 
     # Create portainer volume if not exists
