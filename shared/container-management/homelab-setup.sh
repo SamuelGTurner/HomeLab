@@ -6,7 +6,7 @@ set -euo pipefail
 readonly SCRIPT_NAME=$(basename "$0")
 readonly LOG_FILE="/var/log/${SCRIPT_NAME%.*}.log"
 readonly TMP_DIR=$(mktemp -d -t HomeLabSetup-XXXXXX)
-readonly DOMAINNAME=$(hostname | tr '[:upper:]' '[:lower:]').local
+readonly DOMAINNAME=$(hostname | tr '[:upper:]' '[:lower:]')".local"
 readonly DOCKERDIRNAME="docker"
 readonly DOCKERDIR="/home/dev/${DOCKERDIRNAME}"
 
