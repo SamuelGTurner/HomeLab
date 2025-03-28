@@ -5,7 +5,7 @@ services:
   # Container Management - Portainer CE
   container-management:
     container_name: Portainer-CE
-    image: portainer/portainer-ce:lts
+    image: portainer/portainer-ce:2.21.5
     depends_on:
       - socket-proxy
     security_opt:
