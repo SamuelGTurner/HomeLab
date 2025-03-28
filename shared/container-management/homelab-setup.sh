@@ -8,7 +8,7 @@ readonly LOG_FILE="/var/log/${SCRIPT_NAME%.*}.log"
 readonly TMP_DIR=$(mktemp -d -t HomeLabSetup-XXXXXX)
 readonly DOMAINNAME=$(hostname)".local"
 readonly DOCKERDIRNAME="docker"
-readonly DOCKERDIR="~/${DOCKERDIRNAME}"
+readonly DOCKERDIR="/home/dev/${DOCKERDIRNAME}"
 
 
 # Logger function
@@ -81,10 +81,16 @@ main() {
     # Launch Container Mangement Stack
     export DOCKERDIR
     export DOMAINNAME
-    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - config container-management
     curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - up -d
 
 }
 
 # Run the script
 main "$@"
+
+# readonly DOMAINNAME=$(hostname)".local"
+# readonly DOCKERDIRNAME="docker"
+# readonly DOCKERDIR="~/${DOCKERDIRNAME}"
+# export DOCKERDIR
+# export DOMAINNAME
+# curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - config
