@@ -79,7 +79,9 @@ main() {
     fi
     
     # Launch Container Mangement Stack
-    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - up -d -e DOMAINNAME
+    export DOCKERDIR
+    export DOMAINNAME
+    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/docker-compose.yml | docker compose -f - up -d
 
 }
 
