@@ -2,7 +2,7 @@
 
 ## WSL testing setup
 
-### Setup WSL distrobution
+### Setup WSL2 distribution
 
 ```ps
 wsl --unregister DebianRPi
@@ -18,5 +18,4 @@ sudo useradd -m -s /bin/bash "$USERNAME"
 sudo passwd "$USERNAME"
 sudo usermod -aG sudo "$USERNAME"
 su - "$USERNAME"
-
 ```
