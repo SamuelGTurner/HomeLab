@@ -5,7 +5,9 @@ services:
   # Container Management - Portainer CE
   container-management:
     container_name: Portainer-CE
-    image: portainer/portainer-ce:2.21.5
+    image: portainer/portainer-ce:lts
+    depends_on:
+      - socket-proxy
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -16,10 +18,11 @@ services:
     networks:
       docker_socket_proxy:
       reverse_proxy_private:
-    # ports:
-    #     - "9000:9000"
+    ports:
+      - "9000:9000"
     environment:
-      TZ: ${TZ}
+      TZ: ${TZ-Europe/London}
+      DOMAINNAME:
     labels:
       portainer.hide: true
       traefik.enable: true
@@ -35,7 +38,10 @@ services:
   # Reverse Proxy - Traefik
   reverse-proxy:
     container_name: Traefik
-    image: traefik:v3.2
+    image: traefik:latest
+    depends_on:
+      - socket-proxy
+      - container-management
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -63,7 +69,9 @@ services:
     extra_hosts:
       - host.docker.internal:host-gateway
     environment:
-      - TZ=$TZ
+      TZ: ${TZ-Europe/London}
+      DOMAINNAME:
+      DOCKERDIR:
     labels:
       portainer.hide: true
       traefik.enable: true

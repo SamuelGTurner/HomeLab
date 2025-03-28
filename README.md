@@ -1,20 +1,22 @@
 # HomeLab
 
+
+## Setup
+
+
+### Container Manangement
+[Portainer-CE](https://docs.portainer.io/start/install-ce) behind a [Traefik](https://doc.traefik.io/traefik/getting-started/install-traefik/) reverse proxy with a [Docker](https://docs.docker.com/get-started/) socket proxy by [linuxserver](https://docs.linuxserver.io/images/docker-socket-proxy/). 
+
+```sh
+sudo apt update && sudo apt install curl -y
+
+sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/shared/container-management/homelab-setup.sh) _ -p"
+
+```
+
+## Docs
 https://docs.docker.com/reference/compose-file/
 https://github.com/anandslab/docker-traefik
 https://doc.traefik.io/traefik/reference/install-configuration/providers/docker/
-
-
-# Setup
 https://docs.docker.com/engine/install/debian/#install-using-the-repository
 https://docs.portainer.io/start/upgrade/docker
-
-```docker run -d -p 8000:8000 -p 9443:9443 -p 9000:9000 --name=portainer --restart=unless-stopped -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:2.21.5```
-
-
-# Install
-
-git clone https://github.com/SamuelGTurner/HomeLab.git
-mkdir HomeLab/appdata HomeLab/secrets
-cp HomeLab/artemis/.env.example HomeLab/artemis/.env
-nano HomeLab/artemis/.env
