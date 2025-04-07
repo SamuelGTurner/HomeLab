@@ -1,31 +1,7 @@
-name: Portainer-Agent
+name: Docker-Agent
 
 services:
   
-  # Container Management - Portainer CE
-  container-agent:
-    container_name: Portainer-CE-Agent
-    image: portainer/agent:2.21.5
-    depends_on:
-      - socket-proxy
-    security_opt:
-      - no-new-privileges:true
-    restart: unless-stopped
-    command: -H tcp://socket-proxy:2375
-    volumes:
-      - /var/lib/docker/volumes:/var/lib/docker/volumes
-    networks:
-      docker_socket_proxy:
-      reverse_proxy_private:
-    ports:
-      - "9001:9001"
-    environment:
-      TZ: ${TZ-Europe/London}
-      DOMAINNAME:
-    labels:
-      portainer.hide: true
-      traefik.enable: false
-
   # Reverse Proxy - Traefik
   reverse-proxy:
     container_name: Traefik

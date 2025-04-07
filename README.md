@@ -15,11 +15,11 @@ sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/
 
 ```
 
-#### Portainer Agent
+#### Docker Agent
 ```sh
 sudo apt update && sudo apt install curl -y
 
-sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/portainer-agent/deploy.sh) _ -p"
+sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/docker-agent/deploy.sh) _ -p"
 
 ```
 

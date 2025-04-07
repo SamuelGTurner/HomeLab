@@ -76,7 +76,7 @@ main() {
     # Launch Container Mangement Stack
     export DOCKERDIR
     export DOMAINNAME
-    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/portainer-agent/docker-compose.yml | docker compose -f - up -d --pull always
+    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/docker-agent/docker-compose.yml | docker compose -f - up -d --pull always
 
 }
 
