@@ -12,9 +12,13 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     command: -H tcp://socket-proxy:2375
+    volumes:
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
     networks:
       docker_socket_proxy:
       reverse_proxy_private:
+    ports:
+      - "9001:9001"
     environment:
       TZ: ${TZ-Europe/London}
       DOMAINNAME:
