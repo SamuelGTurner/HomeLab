@@ -72,16 +72,11 @@ main() {
     cd ~
     echo "$DOCKERDIRNAME"
     mkdir -p "$DOCKERDIRNAME"
-
-    # Create portainer volume if not exists
-    if [ ! "$(docker volume ls -f name=portainer_data -q 2> /dev/null)" ]; then 
-        docker volume create portainer_data
-    fi
     
     # Launch Container Mangement Stack
     export DOCKERDIR
     export DOMAINNAME
-    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/shared/container-management/docker-compose.yml | docker compose -f - up -d --pull always
+    curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/portainer-agent/docker-compose.yml | docker compose -f - up -d --pull always
 
 }
 
