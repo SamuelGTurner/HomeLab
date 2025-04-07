@@ -7,20 +7,19 @@
 ### Container Manangement
 [Portainer-CE](https://docs.portainer.io/start/install-ce) behind a [Traefik](https://doc.traefik.io/traefik/getting-started/install-traefik/) reverse proxy with a [Docker](https://docs.docker.com/get-started/) socket proxy by [linuxserver](https://docs.linuxserver.io/images/docker-socket-proxy/). 
 
-#### Portainer Host
+#### Install curl
 ```sh
 sudo apt update && sudo apt install curl -y
+```
 
+#### Portainer Host
+```sh
 sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/portainer-host/deploy.sh) _ -p"
-
 ```
 
 #### Docker Agent
 ```sh
-sudo apt update && sudo apt install curl -y
-
 sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/docker-agent/deploy.sh) _ -p"
-
 ```
 
 ## Docs
