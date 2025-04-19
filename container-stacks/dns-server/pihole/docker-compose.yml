@@ -41,6 +41,8 @@ services:
       # Optional, if Pi-hole should get some more processing time
       - SYS_NICE
     restart: unless-stopped
+    networks:
+      reverse_proxy_private:
     labels:
       traefik.enable: true
       # HTTP Routers
