@@ -3,7 +3,7 @@ services:
   pihole:
     container_name: pihole
     image: pihole/pihole:2025.04.0
-    hostname: pihole.${DOMAINNAME}
+    # hostname: pihole.${DOMAINNAME}
     ports:
       # DNS Ports
       - "${PIHOLE_IP}:53:53/tcp"
@@ -25,7 +25,7 @@ services:
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
       FTLCONF_dns_listeningMode: 'all'
       FTLCONF_webserver_domain: pihole.${DOMAINNAME}
-      FTLCONF_LOCAL_IPV4: ${PIHOLE_IP}
+      # FTLCONF_LOCAL_IPV4: ${PIHOLE_IP}
     # Volumes store your data between container upgrades
     volumes:
       # For persisting Pi-hole's databases and common configuration file
