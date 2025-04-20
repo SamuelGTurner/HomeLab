@@ -44,6 +44,7 @@ services:
       # Optional, if Pi-hole should get some more processing time
       - SYS_NICE
     restart: unless-stopped
+    command: bash -c "sudo sqlite3 /etc/pihole/gravity.db 'INSERT INTO adlist (address) SELECT adlistAdd.address FROM (VALUES ${ADLISTS_SQL}) AS adlistAdd(address) WHERE NOT EXISTS (SELECT 1 FROM adlist WHERE adlist.address = adlistAdd.address);' && sudo pihole -g"
     networks:
       reverse_proxy_private:
     labels:
