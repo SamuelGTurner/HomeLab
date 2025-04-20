@@ -23,8 +23,10 @@ services:
       # Set a password to access the web interface. Not setting one will result in a random password being assigned
       FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
       # If using Docker's default `bridge` network setting the dns listening mode should be set to 'all'
-      FTLCONF_dns_listeningMode: 'all'
+      FTLCONF_dns_listeningMode: 'LOCAL'
       FTLCONF_webserver_domain: pihole.${DOMAINNAME}
+      FTLCONF_dns_upstreams: '1.1.1.1;1.0.0.1'
+      FTLCONF_misc_dnsmasq_lines:
       # FTLCONF_LOCAL_IPV4: ${PIHOLE_IP}
     # Volumes store your data between container upgrades
     volumes:
