@@ -6,4 +6,4 @@ echo "https://big.oisd.nl" >> /etc/pihole/adlists.list
 echo "https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt" >> /etc/pihole/adlists.list
 
 # then run the original entrypoint
-exec /start.sh "$@"
+exec start.sh "$@"
