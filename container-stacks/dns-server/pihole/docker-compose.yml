@@ -20,6 +20,7 @@ services:
       #- "${PIHOLE_IP}:123:123/udp"
     environment:
       TZ: ${TZ}
+      DOMAINNAME: ${DOMAINNAME}
       FTLCONF_dns_domain: local
       FTLCONF_dns_domainNeeded: true
       FTLCONF_dns_expandHosts: true
