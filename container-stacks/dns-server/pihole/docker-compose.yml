@@ -60,5 +60,5 @@ services:
       traefik.http.routers.pihole.service: pihole-svc
       traefik.http.services.pihole-svc.loadbalancer.server.port: 80
     profiles:
-      # - prod
+      - prod
       - dev
