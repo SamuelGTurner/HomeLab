@@ -19,3 +19,10 @@ sudo passwd "$USERNAME"
 sudo usermod -aG sudo "$USERNAME"
 su - "$USERNAME"
 ```
+
+## Dockerfile building
+
+### Exploring base image
+```sh
+sudo docker run -it --entrypoint sh --network none image_name
+```
