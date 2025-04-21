@@ -76,10 +76,6 @@ main() {
     # Launch Container Mangement Stack
     export DOCKERDIR
     export DOMAINNAME
-    for arg in "$@"; do
-        echo "$arg"
-    done
-
     curl -s "https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/${1:-main}/container-management/docker-agent/docker-compose.yml" | docker compose -f - up -d --pull always
 
 }
