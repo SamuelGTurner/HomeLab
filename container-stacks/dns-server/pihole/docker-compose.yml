@@ -21,8 +21,10 @@ services:
       FTLCONF_dns_expandHosts: true
       FTLCONF_dns_interface: eth0
       FTLCONF_dns_listeningMode: SINGLE
-      FTLCONF_dns_revServers: ${FTLCONF_dns_revServers}
       FTLCONF_dns_piholePTR: HOSTNAME
+      FTLCONF_dns_reply_host_force4: true
+      FTLCONF_dns_reply_host_IPv4: ${PIHOLE_IP}
+      FTLCONF_dns_revServers: ${FTLCONF_dns_revServers}
       FTLCONF_dns_upstreams: '1.1.1.1;1.0.0.1'
       FTLCONF_misc_dnsmasq_lines: ${FTLCONF_misc_dnsmasq_lines}
       FTLCONF_ntp_ipv4_active: false
