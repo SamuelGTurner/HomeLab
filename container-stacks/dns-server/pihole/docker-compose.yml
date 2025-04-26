@@ -27,6 +27,7 @@ services:
       FTLCONF_misc_dnsmasq_lines: ${FTLCONF_misc_dnsmasq_lines}
       FTLCONF_ntp_ipv4_active: false
       FTLCONF_ntp_ipv6_active: false
+      FTLCONF_ntp_sync_active: false
       FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
       FTLCONF_webserver_domain: pihole.${DOMAINNAME}
       FTLCONF_webserver_interface_theme: default-dark
