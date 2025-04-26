@@ -20,7 +20,6 @@ services:
       reverse_proxy_private:
     environment:
       TZ: ${TZ-Europe/London}
-      DOMAINNAME:
     labels:
       portainer.hide: true
       traefik.enable: true
@@ -111,12 +110,13 @@ services:
       - ALLOW_START=1
       - ALLOW_STOP=1
       - ALLOW_RESTARTS=1
-      - BUILD=0
+      - BUILD=1
       - COMMIT=0
       - CONFIGS=0
       - CONTAINERS=1
       - DISTRIBUTION=0
-      - EXEC=0
+      - EXEC=1
+      - GRPC=1
       - IMAGES=1
       - INFO=1
       - NETWORKS=1

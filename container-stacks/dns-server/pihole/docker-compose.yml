@@ -1,22 +1,48 @@
 services:
   # Pi-hole - DNS Ad Block
   pihole:
-    container_name: Pi-hole
-    image: pihole/pihole:2024.07.0
-    restart: unless-stopped
-    volumes:
-      - './etc-pihole:/etc/pihole'
-      - './etc-dnsmasq.d:/etc/dnsmasq.d'
+    container_name: pihole
+    image: local/pihole:2025.04.0
+    build: build
+    pull_policy: build
     hostname: pihole.${DOMAINNAME}
-    networks:
-      reverse_proxy_private:
     ports:
       - "${PIHOLE_IP}:53:53/tcp"
       - "${PIHOLE_IP}:53:53/udp"
+      # DHCP Server
+      #- "${PIHOLE_IP}:67:67/udp"
+      # NTP server
+      #- "${PIHOLE_IP}:123:123/udp"
     environment:
       TZ: ${TZ}
-      WEBPASSWORD: ${PIHOLE_PASSWORD}
-      FTLCONF_LOCAL_IPV4: ${PIHOLE_IP}
+      DOMAINNAME: ${DOMAINNAME}
+      FTLCONF_dns_domain: local
+      FTLCONF_dns_domainNeeded: true
+      FTLCONF_dns_expandHosts: true
+      FTLCONF_dns_interface: eth0
+      FTLCONF_dns_listeningMode: SINGLE
+      FTLCONF_dns_revServers: ${FTLCONF_dns_revServers}
+      FTLCONF_dns_piholePTR: HOSTNAMEFQDN
+      FTLCONF_dns_upstreams: '1.1.1.1;1.0.0.1'
+      FTLCONF_misc_dnsmasq_lines: ${FTLCONF_misc_dnsmasq_lines}
+      FTLCONF_ntp_ipv4_active: false
+      FTLCONF_ntp_ipv6_active: false
+      FTLCONF_ntp_sync_active: false
+      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
+      FTLCONF_webserver_domain: pihole.${DOMAINNAME}
+      FTLCONF_webserver_interface_theme: default-dark
+      FTLCONF_webserver_port: 80o
+
+    volumes:
+      - './etc-pihole:/etc/pihole'
+    cap_add:
+      # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+      # - NET_ADMIN
+      # - SYS_TIME
+      - SYS_NICE
+    restart: unless-stopped
+    networks:
+      reverse_proxy_private:
     labels:
       traefik.enable: true
       # HTTP Routers
@@ -29,3 +55,4 @@ services:
       traefik.http.services.pihole-svc.loadbalancer.server.port: 80
     profiles:
       - prod
+      - dev

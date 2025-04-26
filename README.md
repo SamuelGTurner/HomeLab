@@ -14,12 +14,22 @@ sudo apt update && sudo apt install curl -y
 
 #### Portainer Host
 ```sh
-sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/portainer-host/deploy.sh) _ -p"
+sudo bash -c "$(curl -s -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/portainer-host/deploy.sh)"
+```
+
+#### Portainer Host Dev
+```sh
+sudo bash -c "$(curl -s -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/container-management/portainer-host/deploy.sh) dev"
 ```
 
 #### Docker Agent
 ```sh
-sudo bash -c "$(curl -s https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/docker-agent/deploy.sh) _ -p"
+sudo bash -c "$(curl -s -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/main/container-management/docker-agent/deploy.sh)"
+```
+
+#### Docker Agent Dev
+```sh
+sudo bash -c "$(curl -s -H 'Cache-Control: no-cache' https://raw.githubusercontent.com/SamuelGTurner/HomeLab/refs/heads/dev/container-management/docker-agent/deploy.sh) dev"
 ```
 
 ## Docs
