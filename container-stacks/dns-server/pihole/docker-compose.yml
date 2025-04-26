@@ -7,16 +7,11 @@ services:
     pull_policy: build
     hostname: pihole.${DOMAINNAME}
     ports:
-      # DNS Ports
       - "${PIHOLE_IP}:53:53/tcp"
       - "${PIHOLE_IP}:53:53/udp"
-      # Default HTTP Port
-      # - "80:80/tcp"
-      # Default HTTPs Port. FTL will generate a self-signed certificate
-      # - "443:443/tcp"
-      # Uncomment the below if using Pi-hole as your DHCP Server
+      # DHCP Server
       #- "${PIHOLE_IP}:67:67/udp"
-      # Uncomment the line below if you are using Pi-hole as your NTP server
+      # NTP server
       #- "${PIHOLE_IP}:123:123/udp"
     environment:
       TZ: ${TZ}
@@ -27,24 +22,21 @@ services:
       FTLCONF_dns_interface: eth0
       FTLCONF_dns_listeningMode: SINGLE
       FTLCONF_dns_revServers: ${FTLCONF_dns_revServers}
+      FTLCONF_dns_piholePTR: HOSTNAMEFQDN
       FTLCONF_dns_upstreams: '1.1.1.1;1.0.0.1'
       FTLCONF_misc_dnsmasq_lines: ${FTLCONF_misc_dnsmasq_lines}
+      FTLCONF_dhcp_ntp_ipv4_active: false
+      FTLCONF_dhcp_ntp_ipv6_active: false
       FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
       FTLCONF_webserver_domain: pihole.${DOMAINNAME}
       FTLCONF_webserver_interface_theme: default-dark
-    # Volumes store your data between container upgrades
+
     volumes:
-      # For persisting Pi-hole's databases and common configuration file
       - './etc-pihole:/etc/pihole'
-      # Uncomment the below if you have custom dnsmasq config files that you want to persist. Not needed for most starting fresh with Pi-hole v6. If you're upgrading from v5 you and have used this directory before, you should keep it enabled for the first v6 container start to allow for a complete migration. It can be removed afterwards. Needs environment variable FTLCONF_misc_etc_dnsmasq_d: 'true'
-      #- './etc-dnsmasq.d:/etc/dnsmasq.d'
     cap_add:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
-      # Required if you are using Pi-hole as your DHCP server, else not needed
       # - NET_ADMIN
-      # Required if you are using Pi-hole as your NTP client to be able to set the host's system time
       # - SYS_TIME
-      # Optional, if Pi-hole should get some more processing time
       - SYS_NICE
     restart: unless-stopped
     networks:
