@@ -25,8 +25,8 @@ services:
       FTLCONF_dns_piholePTR: HOSTNAMEFQDN
       FTLCONF_dns_upstreams: '1.1.1.1;1.0.0.1'
       FTLCONF_misc_dnsmasq_lines: ${FTLCONF_misc_dnsmasq_lines}
-      FTLCONF_dhcp_ntp_ipv4_active: false
-      FTLCONF_dhcp_ntp_ipv6_active: false
+      FTLCONF_ntp_ipv4_active: false
+      FTLCONF_ntp_ipv6_active: false
       FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
       FTLCONF_webserver_domain: pihole.${DOMAINNAME}
       FTLCONF_webserver_interface_theme: default-dark
