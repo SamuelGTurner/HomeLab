@@ -31,6 +31,7 @@ services:
       FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
       FTLCONF_webserver_domain: pihole.${DOMAINNAME}
       FTLCONF_webserver_interface_theme: default-dark
+      FTLCONF_webserver_port: 80o
 
     volumes:
       - './etc-pihole:/etc/pihole'
