@@ -38,8 +38,6 @@ services:
       - 2080:80
       - 2443:443
       - 2020:8080
-    secrets:
-      - cf_token
     environment:
       TZ: ${TZ-Europe/London}
       CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
