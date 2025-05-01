@@ -10,3 +10,9 @@ networks:
 include:
   - traefik/docker-compose.yml
   - whoami/docker-compose.yml
+
+volumes:
+  acme:
+   name: acme
+  traefik:
+   name: traefik
