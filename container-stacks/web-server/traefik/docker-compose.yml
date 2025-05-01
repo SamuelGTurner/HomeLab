@@ -30,7 +30,7 @@ services:
       - --providers.docker.endpoint=tcp://socket-proxy:2375
     volumes:
       - acme:/etc/traefik/acme
-      - traefik:/config
+      - traefik2:/config
     networks:
       reverse_proxy:
       docker_socket_proxy:
