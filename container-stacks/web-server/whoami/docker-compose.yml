@@ -11,7 +11,7 @@ services:
       traefik.enable: true
       traefik.docker.network: reverse_proxy
       # HTTP Routers
-      traefik.http.routers.it-tools.rule: Host(`whoami.${DOMAINNAME}`)
+      traefik.http.routers.it-tools.rule: Host(`whoami.${ROOT_DOMAIN}`)
       traefik.http.routers.it-tools.entrypoints: web
       # HTTP Services
       traefik.http.routers.it-tools.service: whoami
