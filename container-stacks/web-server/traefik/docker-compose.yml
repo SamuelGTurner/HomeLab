@@ -1,0 +1,57 @@
+services:
+  reverse-proxy:
+    container_name: Traefik
+    image: traefik:latest
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    command:
+      - --log
+      - --log.level=${LOG_LEVEL:-INFO}
+      - --log.format=json
+      - --api.insecure=true
+      - --providers.docker
+      - --providers.docker.exposedbydefault=false
+      - --serversTransport.insecureSkipVerify=true # Allow self-signed certificates for target hosts - https://doc.traefik.io/traefik/routing/overview/#insecureskipverify
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.websecure.address=:443
+      - --entrypoints.websecure.http.tls=true
+      - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+      - --certificatesresolvers.letsencrypt.acme.email=${LETSENCRYPT_EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/letsencrypt.json
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.delaybeforecheck=300
+      - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=8.8.8.8:53
+      # Default Docker network
+      - --providers.docker.network=reverse_proxy
+      # Use Docker socket proxy
+      - --providers.docker.endpoint=tcp://socket-proxy:2375
+    volumes:
+      - acme:/etc/traefik/acme
+      - traefik:/config
+    networks:
+      reverse_proxy:
+      docker_socket_proxy:
+    ports:
+      - 2080:80
+      - 2443:443
+      - 2020:8080
+    secrets:
+      - cf_token
+    environment:
+      TZ: ${TZ-Europe/London}
+      CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
+      CLOUDFLARE_HTTP_TIMEOUT: ${HTTP_TIMEOUT}
+      CLOUDFLARE_POLLING_INTERVAL: ${POLLING_INTERVAL}
+      CLOUDFLARE_PROPAGATION_TIMEOUT: ${PROPAGATION_TIMEOUT}
+      CLOUDFLARE_TTL: ${TTL}
+    labels:
+      portainer.hide: true
+      traefik.enable: true
+      traefik.http.routers.api.rule: Host(`traefik.${ROOT_DOMAIN}`)
+      traefik.http.routers.api.service: api@internal
+      traefik.http.routers.api.entrypoints: websecure
+      traefik.http.routers.api.tls: true
+      traefik.http.services.api.loadbalancer.server.port: 8080

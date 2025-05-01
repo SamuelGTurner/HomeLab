@@ -1,0 +1,20 @@
+services:
+  whoami:
+    container_name: whoami
+    image: traefik/whoami
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    networks:
+      reverse_proxy:
+    labels:
+      traefik.enable: true
+      traefik.docker.network: reverse_proxy
+      # HTTP Routers
+      traefik.http.routers.it-tools.rule: Host(`whoami.${DOMAINNAME}`)
+      traefik.http.routers.it-tools.entrypoints: web
+      # HTTP Services
+      traefik.http.routers.it-tools.service: whoami
+      traefik.http.services.it-tools-svc.loadbalancer.server.port: 80
+      # Config
+      traefik.constraint: proxy-public

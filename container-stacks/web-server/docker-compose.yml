@@ -1,0 +1,12 @@
+name: Web-Server
+
+networks:
+  reverse_proxy:
+    name: reverse_proxy
+    driver: bridge
+  docker_socket_proxy:
+    external: true
+
+include:
+  - traefik/docker-compose.yml
+  - whoami/docker-compose.yml
