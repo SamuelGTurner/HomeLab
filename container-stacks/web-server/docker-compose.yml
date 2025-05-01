@@ -15,4 +15,4 @@ volumes:
   acme:
    name: acme
   traefik:
-   name: traefik
+   name: traefik2
