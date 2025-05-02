@@ -13,8 +13,8 @@ services:
       # HTTP Routers
       traefik.http.routers.whoami.rule: Host(`whoami.${ROOT_DOMAIN}`)
       traefik.http.routers.whoami.entrypoints: websecure
-      traefik.http.routers.blog.tls: true
-      traefik.http.routers.blog.tls.certresolver: letsencrypt
+      traefik.http.routers.whoami.tls: true
+      traefik.http.routers.whoami.tls.certresolver: letsencrypt
       # HTTP Services
       traefik.http.routers.whoami.service: whoami-svc
       traefik.http.services.whoami-svc.loadbalancer.server.port: 80
