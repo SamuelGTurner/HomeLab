@@ -1,6 +1,6 @@
 services:
   reverse-proxy:
-    container_name: Traefik
+    container_name: Traefik-Web
     image: traefik:latest
     security_opt:
       - no-new-privileges:true
@@ -30,7 +30,7 @@ services:
       - --providers.docker.endpoint=tcp://socket-proxy:2375
     volumes:
       - acme:/etc/traefik/acme
-      - traefik2:/config
+      - traefik:/config
     networks:
       reverse_proxy:
       docker_socket_proxy:
