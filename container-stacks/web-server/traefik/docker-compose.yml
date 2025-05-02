@@ -35,9 +35,9 @@ services:
       reverse_proxy:
       docker_socket_proxy:
     ports:
-      - 2080:80
-      - 2443:443
-      - 2020:8080
+      - 80:80
+      - 443:443
+      - 8080:8080
     environment:
       TZ: ${TZ-Europe/London}
       CLOUDFLARE_DNS_API_TOKEN: ${CLOUDFLARE_DNS_API_TOKEN}
@@ -52,4 +52,4 @@ services:
       traefik.http.routers.api.service: api@internal
       traefik.http.routers.api.entrypoints: websecure
       traefik.http.routers.api.tls: true
-      traefik.http.services.api.loadbalancer.server.port: 2020
+      traefik.http.services.api.loadbalancer.server.port: 8080
