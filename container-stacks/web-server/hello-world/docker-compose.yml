@@ -1,9 +1,11 @@
 services:
   hello-world:
+    container_name: hello-world
     image: ghcr.io/kljensen/hello-world-http:latest
     init: true
     environment:
-      - PORT=8000
+      HOST: 0.0.0.0
+      PORT: 8000
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
