@@ -52,4 +52,4 @@ services:
       traefik.http.routers.api.service: api@internal
       traefik.http.routers.api.entrypoints: websecure
       traefik.http.routers.api.tls: true
-      traefik.http.services.api.loadbalancer.server.port: 8080
+      traefik.http.services.api.loadbalancer.server.port: 2020
