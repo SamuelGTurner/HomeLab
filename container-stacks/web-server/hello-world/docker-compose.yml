@@ -1,0 +1,21 @@
+services:
+  hello-world:
+    image: ghcr.io/kljensen/hello-world-http:latest
+    init: true
+    environment:
+      - PORT=8000
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    networks:
+      reverse_proxy:
+    labels:
+      traefik.enable: true
+      traefik.docker.network: reverse_proxy
+      traefik.http.services.hello-world.loadbalancer.server.port: 8000
+      traefik.http.routers.hello-world.rule: Host(`${ROOT_DOMAIN}`)
+      traefik.http.routers.hello-world.entrypoints: websecure
+      traefik.http.routers.hello-world.tls: true
+      traefik.http.routers.hello-world.tls.certresolver: letsencrypt
+      traefik.http.routers.hello-world.tls.domains[0].main: "${ROOT_DOMAIN}"
+      traefik.http.routers.hello-world.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
