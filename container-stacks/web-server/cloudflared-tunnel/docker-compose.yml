@@ -1,0 +1,13 @@
+services:
+  tunnel:
+    container_name: cloudflared-tunnel
+    image: cloudflare/cloudflared:latest
+    security_opt:
+      - no-new-privileges:true
+    command: tunnel run
+    restart: unless-stopped
+    networks:
+      reverse_proxy:
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN}
+
