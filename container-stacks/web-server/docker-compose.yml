@@ -14,5 +14,5 @@ include:
 volumes:
   acme:
    name: acme
-  traefik2:
-   name: traefik2
+  traefik:
+   name: traefik
