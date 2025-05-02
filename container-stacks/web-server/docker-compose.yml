@@ -10,6 +10,7 @@ networks:
 include:
   - traefik/docker-compose.yml
   - whoami/docker-compose.yml
+  - cloudflared-tunnel/docker-compose.yml
 
 volumes:
   acme:
