@@ -8,9 +8,10 @@ networks:
     external: true
 
 include:
+  - cloudflared-tunnel/docker-compose.yml
+  - hello-world/docker-compose.yml
   - traefik/docker-compose.yml
   - whoami/docker-compose.yml
-  - cloudflared-tunnel/docker-compose.yml
 
 volumes:
   acme:
