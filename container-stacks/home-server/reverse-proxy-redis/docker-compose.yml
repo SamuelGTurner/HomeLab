@@ -1,0 +1,20 @@
+services:
+  traefik-kop:
+    container_name: traefik-kop
+    image: ghcr.io/jittering/traefik-kop:latest
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    networks:
+      traefik-kop:
+    environment:
+      REDIS_ADDR: ${REDIS_IP}:6380
+      BIND_IP: ${LOCAL_IP}
+      NAMESPACE: kop
+      DOCKER_CONFIG: |
+        ---
+        docker:
+          exposedbydefault: false
+          endpoint: tcp://socket-proxy:2375
+          network: traefik-kop
+

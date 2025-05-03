@@ -13,26 +13,28 @@ services:
       - /home/${LOCALUSER}/ais/webassets:/etc/webassets
     networks:
       reverse_proxy_private:
+      traefik-kop:
     labels:
+      kop.namespace: kop
       traefik.enable: true
-      # HTTP Routers
+      # Web Viewer Local
       traefik.http.routers.ais.entrypoints: web
       traefik.http.routers.ais.rule: Host(`ais.${DOMAINNAME}`)
-      # Middlewares
-      # traefik.http.routers.template.middlewares: chain-oauth@file
-      # HTTP Services
       traefik.http.routers.ais.service: ais-svc
       traefik.http.services.ais-svc.loadbalancer.server.port: 8100
-      #
-      #
+      # Admin Local
       traefik.http.routers.ais-admin.entrypoints: web
       traefik.http.routers.ais-admin.rule: Host(`ais-admin.${DOMAINNAME}`)
-      # traefik.http.routers.ais-admin.rule: Host(`ais.${DOMAINNAME}`) && PathPrefix(`/admin`)
-      # Middlewares
-      # traefik.http.routers.template.middlewares: chain-oauth@file
-      # HTTP Services
       traefik.http.routers.ais-admin.service: ais-admin-svc
       traefik.http.services.ais-admin-svc.loadbalancer.server.port: 8110
+      # Web Viewer Public
+      traefik.http.routers.ais-public.entrypoints: websecure
+      traefik.http.routers.ais-public.tls: true
+      traefik.http.routers.ais-public.tls.certresolver: letsencrypt
+      traefik.http.routers.ais-public.rule: Host(`ais.${ROOT_DOMAIN}`)
+      traefik.http.routers.ais-public.service: ais-public-svc
+      traefik.http.services.ais-public-svc.loadbalancer.server.port: 8100
+
     profiles:
       - prod
 

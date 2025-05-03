@@ -5,6 +5,9 @@ networks:
     external: true
   reverse_proxy_public:
     external: true
+  traefik-kop:
+    name: traefik-kop
+    driver: bridge
 
 include:
   - ais-catcher/docker-compose.yml
@@ -12,3 +15,4 @@ include:
   - it-tools/docker-compose.yml
   - jellyfin/docker-compose.yml
   # - pagermon/docker-compose.yml
+  - reverse-proxy-redis/docker-compose.yml
