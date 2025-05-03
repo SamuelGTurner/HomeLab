@@ -5,6 +5,8 @@ networks:
     external: true
   reverse_proxy_public:
     external: true
+  docker_socket_proxy:
+    external: true
   traefik-kop:
     name: traefik-kop
     driver: bridge
