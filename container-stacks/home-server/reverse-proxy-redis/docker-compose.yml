@@ -11,10 +11,10 @@ services:
       REDIS_ADDR: ${REDIS_IP}:6379
       BIND_IP: ${LOCAL_IP}
       NAMESPACE: kop
+      DOCKER_HOST: tcp://socket-proxy:2375
       DOCKER_CONFIG: |
         ---
         docker:
           exposedbydefault: false
-          endpoint: tcp://socket-proxy:2375
           network: traefik-kop
 
