@@ -10,6 +10,7 @@ networks:
 include:
   - cloudflared-tunnel/docker-compose.yml
   - hello-world/docker-compose.yml
+  - redis/docker-compose.yml
   - traefik/docker-compose.yml
   - whoami/docker-compose.yml
 
