@@ -31,6 +31,8 @@ services:
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=reverse_proxy
       - --providers.docker.endpoint=tcp://socket-proxy:2375
+
+      - --providers.redis.endpoints=redis:6379
     volumes:
       - acme:/etc/traefik/acme
       - traefik:/config
