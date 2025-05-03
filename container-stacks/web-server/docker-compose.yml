@@ -19,3 +19,5 @@ volumes:
    name: acme
   traefik:
    name: traefik
+  redis_data:
+   name: redis_data
