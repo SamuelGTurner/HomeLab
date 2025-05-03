@@ -1,0 +1,17 @@
+services:
+  redis:
+    container_name: redis
+    image: redis:latest
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+    ports:
+      - '6379:6379'
+    volumes:
+      - 'redis_data:/bitnami/redis/data'
+    networks:
+      reverse_proxy:
