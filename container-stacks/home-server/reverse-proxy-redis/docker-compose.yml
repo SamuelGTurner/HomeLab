@@ -7,6 +7,7 @@ services:
     restart: unless-stopped
     networks:
       traefik-kop:
+      docker_socket_proxy:
     environment:
       REDIS_ADDR: ${REDIS_IP}:6379
       BIND_IP: ${LOCAL_IP}
