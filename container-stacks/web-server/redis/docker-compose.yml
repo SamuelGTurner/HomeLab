@@ -5,6 +5,7 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
+    mem_limit: 100m
     environment:
       # ALLOW_EMPTY_PASSWORD is recommended only for development.
       - ALLOW_EMPTY_PASSWORD=yes
