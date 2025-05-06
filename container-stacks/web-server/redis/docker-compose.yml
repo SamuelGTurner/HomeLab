@@ -16,3 +16,6 @@ services:
       - 'redis_data:/bitnami/redis/data'
     networks:
       reverse_proxy:
+
+# Requires sysctl vm.overcommit_memory=1 on host
+# https://aws.plainenglish.io/resolving-redis-memory-overcommit-must-be-enabled-error-4b4d32ac050c
