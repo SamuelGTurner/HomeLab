@@ -4,6 +4,8 @@ networks:
   reverse_proxy:
     name: reverse_proxy
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1492
   docker_socket_proxy:
     external: true
 
