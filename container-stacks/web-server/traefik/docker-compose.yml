@@ -11,7 +11,7 @@ services:
       - --log.format=json
       - --api.insecure=true
 
-      - --serversTransport.insecureSkipVerify=true # Allow self-signed certificates for target hosts - https://doc.traefik.io/traefik/routing/overview/#insecureskipverify
+      # - --serversTransport.insecureSkipVerify=true # Allow self-signed certificates for target hosts - https://doc.traefik.io/traefik/routing/overview/#insecureskipverify
       - --entrypoints.web.address=:80
       - --entrypoints.web.http.redirections.entrypoint.to=websecure
       - --entrypoints.web.http.redirections.entrypoint.scheme=https
