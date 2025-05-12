@@ -39,17 +39,8 @@ services:
       traefik.http.routers.ais-public.tls.domains[0].main: "${ROOT_DOMAIN}"
       traefik.http.routers.ais-public.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
       traefik.http.routers.ais-public.middlewares: ais-public
-      traefik.http.middlewares.ais-public.replacepath.path: /
-      traefik.http.routers.ais-public.priority: 10
-      # Web Viewer Public API
-      traefik.http.routers.ais-public-api.service: ais-public-svc
-      traefik.http.routers.ais-public-api.rule: Host(`ais.${ROOT_DOMAIN}`) && Path(`/api`)
-      traefik.http.routers.ais-public-api.entrypoints: websecure
-      traefik.http.routers.ais-public-api.tls: true
-      traefik.http.routers.ais-public-api.tls.certresolver: letsencrypt
-      traefik.http.routers.ais-public-api.tls.domains[0].main: "${ROOT_DOMAIN}"
-      traefik.http.routers.ais-public-api.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
-      traefik.http.routers.ais-public-api.priority: 20
+      traefik.http.middlewares.ais-public.replacepathregex.regex: ^/robots/(.*)"
+      traefik.http.middlewares.ais-public.replacepathregex.replacement: /
 
     profiles:
       - prod
