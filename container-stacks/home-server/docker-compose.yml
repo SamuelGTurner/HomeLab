@@ -3,13 +3,19 @@ name: HomeServer
 networks:
   reverse_proxy_private:
     external: true
+    driver_opts:
+      com.docker.network.driver.mtu: 1492
   reverse_proxy_public:
     external: true
+    driver_opts:
+      com.docker.network.driver.mtu: 1492
   docker_socket_proxy:
     external: true
   traefik-kop:
     name: traefik-kop
     driver: bridge
+    driver_opts:
+      com.docker.network.driver.mtu: 1492
 
 include:
   - ais-catcher/docker-compose.yml
