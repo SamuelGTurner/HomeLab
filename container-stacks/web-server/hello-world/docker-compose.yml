@@ -1,7 +1,7 @@
 services:
   hello-world:
     container_name: hello-world
-    image: priorist/phpinfo
+    image: mrnr91/phpinfo
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
