@@ -1,0 +1,29 @@
+services:
+  nvr:
+    container_name: frigate
+    image: ghcr.io/blakeblackshear/frigate:stable
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - frigate-config:/config
+      - frigate-data:/media/frigate
+    networks:
+      reverse_proxy:
+    labels:
+      traefik.enable: true
+      traefik.docker.network: reverse_proxy
+      traefik.http.services.nvr.loadbalancer.server.port: 8971
+      traefik.http.routers.nvr.rule: Host(`nvr.${ROOT_DOMAIN}`)
+      traefik.http.routers.nvr.entrypoints: websecure
+      traefik.http.routers.nvr.tls: true
+      traefik.http.routers.nvr.tls.certresolver: letsencrypt
+      traefik.http.routers.nvr.tls.domains[0].main: "${ROOT_DOMAIN}"
+      traefik.http.routers.nvr.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
+
+volumes:
+  frigate-config:
+   name: frigate-config
+  frigate-data:
+   name: frigate-data
