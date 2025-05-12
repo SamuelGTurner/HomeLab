@@ -5,6 +5,7 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
+    shm_size: "100mb"
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - frigate-config:/config
