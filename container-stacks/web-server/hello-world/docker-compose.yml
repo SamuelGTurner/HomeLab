@@ -1,7 +1,7 @@
 services:
   hello-world:
     container_name: hello-world
-    image: traefik/whoami
+    image: dockerbogo/docker-nginx-hello-world
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
@@ -10,8 +10,8 @@ services:
     labels:
       traefik.enable: true
       traefik.docker.network: reverse_proxy
-      traefik.http.services.hello-world.loadbalancer.server.port: 8000
-      traefik.http.routers.hello-world.rule: Host(`${ROOT_DOMAIN}`)
+      traefik.http.services.hello-world.loadbalancer.server.port: 80
+      traefik.http.routers.hello-world.rule: Host(`www.${ROOT_DOMAIN}`)
       traefik.http.routers.hello-world.entrypoints: websecure
       traefik.http.routers.hello-world.tls: true
       traefik.http.routers.hello-world.tls.certresolver: letsencrypt
