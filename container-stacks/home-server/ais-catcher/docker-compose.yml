@@ -39,7 +39,7 @@ services:
       traefik.http.routers.ais-public.tls.domains[0].main: "${ROOT_DOMAIN}"
       traefik.http.routers.ais-public.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
       traefik.http.routers.ais-public.middlewares: ais-public2
-      traefik.http.middlewares.ais-public2.replacepathregex.regex: ^/robots/(.*)"
+      traefik.http.middlewares.ais-public2.replacepathregex.regex: ^/robots.txt"
       traefik.http.middlewares.ais-public2.replacepathregex.replacement: /
 
     profiles:
