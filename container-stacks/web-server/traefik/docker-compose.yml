@@ -10,8 +10,9 @@ services:
       - --log.level=${LOG_LEVEL:-INFO}
       - --log.format=json
       - --api.insecure=true
+      # Allow self-signed certificates for target hosts - https://doc.traefik.io/traefik/routing/overview/#insecureskipverify
+      - --serversTransport.insecureSkipVerify=true
 
-      - --serversTransport.insecureSkipVerify=true # Allow self-signed certificates for target hosts - https://doc.traefik.io/traefik/routing/overview/#insecureskipverify
       - --entrypoints.web.address=:80
       - --entrypoints.web.http.redirections.entrypoint.to=websecure
       - --entrypoints.web.http.redirections.entrypoint.scheme=https
