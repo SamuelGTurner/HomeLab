@@ -1,7 +1,7 @@
 services:
   hello-world:
     container_name: hello-world
-    image: dockerbogo/docker-nginx-hello-world
+    image: priorist/phpinfo
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
