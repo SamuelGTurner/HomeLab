@@ -31,11 +31,11 @@ services:
       traefik.http.services.ais-admin-svc.loadbalancer.server.port: 8110
       # Web Viewer Public
       traefik.http.routers.ais-public.service: ais-public-svc
+      traefik.http.services.ais-public-svc.loadbalancer.server.url: ais.${DOMAINNAME}
       traefik.http.routers.ais-public.rule: Host(`ais.${ROOT_DOMAIN}`)
       traefik.http.routers.ais-public.entrypoints: websecure
       traefik.http.routers.ais-public.tls: true
       traefik.http.routers.ais-public.tls.certresolver: letsencrypt
-      traefik.http.services.ais-public-svc.loadbalancer.server.port: 8100
       traefik.http.routers.ais-public.tls.domains[0].main: "${ROOT_DOMAIN}"
       traefik.http.routers.ais-public.tls.domains[0].sans: "*.${ROOT_DOMAIN}"  
 
