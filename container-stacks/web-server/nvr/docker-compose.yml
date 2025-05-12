@@ -6,6 +6,8 @@ services:
       - no-new-privileges:true
     restart: unless-stopped
     shm_size: "100mb"
+    devices:
+      - /dev/video10
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - frigate-config:/config
