@@ -38,9 +38,9 @@ services:
       traefik.http.routers.ais-public.tls.certresolver: letsencrypt
       traefik.http.routers.ais-public.tls.domains[0].main: "${ROOT_DOMAIN}"
       traefik.http.routers.ais-public.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
-      traefik.http.routers.ais-public.middlewares: ais-public
-      traefik.http.middlewares.ais-public.replacepathregex.regex: ^/robots/(.*)"
-      traefik.http.middlewares.ais-public.replacepathregex.replacement: /
+      traefik.http.routers.ais-public.middlewares: ais-public2
+      traefik.http.middlewares.ais-public2.replacepathregex.regex: ^/robots/(.*)"
+      traefik.http.middlewares.ais-public2.replacepathregex.replacement: /
 
     profiles:
       - prod
