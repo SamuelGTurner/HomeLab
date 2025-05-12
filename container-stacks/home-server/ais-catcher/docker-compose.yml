@@ -38,6 +38,7 @@ services:
       traefik.http.routers.ais-public.tls.certresolver: letsencrypt
       traefik.http.routers.ais-public.tls.domains[0].main: "${ROOT_DOMAIN}"
       traefik.http.routers.ais-public.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
+      traefik.http.routers.ais-public.middlewares: ais-public@docker
       traefik.http.middlewares.ais-public.replacepath.path: /
 
     profiles:
