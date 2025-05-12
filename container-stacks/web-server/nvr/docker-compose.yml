@@ -11,6 +11,8 @@ services:
       - frigate-data:/media/frigate
     networks:
       reverse_proxy:
+    ports:
+      - 8971:8971
     labels:
       traefik.enable: true
       traefik.docker.network: reverse_proxy
