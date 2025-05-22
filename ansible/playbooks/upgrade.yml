@@ -1,29 +1,45 @@
 ---
-- name: Upgrade all apt packages.
+- name: Upgrade all apt packages
   hosts:
     - swarm
     - wsl
+  gather_facts: false
   become: true
-
   tasks:
-    - name: Update cache and upgrade.
+    - name: Update cache and upgrade
       ansible.builtin.apt:
         update_cache: true
-        upgrade: full
         cache_valid_time: 3600
+        upgrade: full
+        autoclean: true
+      register: upgrade_result
+      notify: List installed and updated packages
 
-    - name: Check if a reboot is required.
+    - name: Check if a reboot is required
       ansible.builtin.stat:
         path: /var/run/reboot-required
         get_checksum: false
       register: reboot_required_file
 
-    - name: Reboot the server as required.
+    - name: Reboot the server as required
       ansible.builtin.reboot:
         post_reboot_delay: 10
       when: reboot_required_file.stat.exists
       throttle: 1
 
-    - name: Remove dependencies that are no longer required.
+    - name: Remove dependencies that are no longer required
       ansible.builtin.apt:
         autoremove: true
+
+  handlers:
+    - name: List installed and updated packages
+      ansible.builtin.shell:
+        cmd: set -o pipefail && grep -E "^$(date +%Y-%m-%d).+ (install|upgrade) " /var/log/dpkg.log |cut -d " " -f 3-5
+        executable: /bin/bash
+      register: upgrade_list
+      changed_when: true
+      notify: Print list of upgraded packages
+
+    - name: Print list of upgraded packages
+      ansible.builtin.debug:
+        msg: "{{ upgrade_list.stdout_lines }}"
