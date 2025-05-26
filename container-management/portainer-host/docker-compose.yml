@@ -104,7 +104,7 @@ services:
       ## Revoked by Default
       # Security critical
       - AUTH=0
-      - SECRETS=0
+      - SECRETS=1
       - POST=1
       # Not always needed
       - ALLOW_START=1
@@ -124,7 +124,7 @@ services:
       - PLUGINS=0
       - SERVICES=1
       - SESSION=0
-      - SWARM=0
+      - SWARM=1
       - SYSTEM=0
       - TASKS=1
       - VOLUMES=1
