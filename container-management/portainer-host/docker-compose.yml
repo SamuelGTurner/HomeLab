@@ -11,10 +11,10 @@ services:
     security_opt:
       - no-new-privileges:true
     restart: unless-stopped
-    # command: -H tcp://socket-proxy:2375
+    command: -H tcp://socket-proxy:2375
     volumes:
         - portainer_data:/data
-        - /var/run/docker.sock:/var/run/docker.sock
+        # - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       docker_socket_proxy:
       reverse_proxy_private:
