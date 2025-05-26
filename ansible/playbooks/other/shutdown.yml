@@ -1,0 +1,10 @@
+---
+- name: Shutdown
+  hosts:
+    - helios
+  gather_facts: false
+  become: true
+  tasks:
+    - name: Shutdown machine
+      community.general.shutdown:
+        delay: 0
