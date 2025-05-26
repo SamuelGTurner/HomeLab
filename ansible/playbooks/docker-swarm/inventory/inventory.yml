@@ -1,0 +1,14 @@
+---
+swarm:
+  children:
+    pi5:
+      hosts:
+        selene:
+          ansible_host: 192.168.0.101
+        helios:
+          ansible_host: 192.168.0.102
+    pi4:
+      hosts:
+        artemis:
+          ansible_host: 192.168.0.100
+

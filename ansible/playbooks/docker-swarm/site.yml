@@ -1,0 +1,31 @@
+---
+- name: Setup Docker & NFS on Ubuntu
+  hosts: swarm
+  become: true
+  roles:
+    - docker_install
+    - nfs_mount
+
+- name: Init Docker Swarm
+  hosts: artemis
+  become: true
+  roles:
+    - docker_init_swarm
+
+- name: Join Managers
+  hosts: swarm
+  become: true
+  roles:
+    - docker_join_swarm_manager
+
+# - name: Join Workers
+#   hosts: workers
+#   become: true
+#   roles:
+#     - docker_join_swarm_worker
+
+# - name: Deploy Portainer
+#   hosts: artemis
+#   become: true
+#   roles:
+#     - portainer_deploy

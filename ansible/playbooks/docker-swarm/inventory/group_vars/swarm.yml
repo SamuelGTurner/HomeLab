@@ -1,0 +1,13 @@
+---
+# ansible vars
+ansible_user: ansible
+ansible_become: true
+ansible_become_method: sudo
+
+# nfs vars
+nfs_server: 192.168.0.200
+nfs_share: /volume2/docker-swarm
+mount_point: /swarm
+
+# portainer vars
+portainer_data: /swarm/portainer/portainer_data
