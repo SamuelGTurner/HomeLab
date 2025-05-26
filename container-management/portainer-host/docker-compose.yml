@@ -120,7 +120,7 @@ services:
       - IMAGES=1
       - INFO=1
       - NETWORKS=1
-      - NODES=0
+      - NODES=1
       - PLUGINS=0
       - SERVICES=1
       - SESSION=0
