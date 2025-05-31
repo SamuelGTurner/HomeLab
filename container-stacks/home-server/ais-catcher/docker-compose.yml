@@ -2,6 +2,8 @@ services:
   # ais-catcher
   ais-catcher:
     image: ghcr.io/jvde-github/ais-catcher:edge
+    cap_add:
+      - NET_ADMIN
     command: -C /etc/AIS-catcher/config.json
     volumes:
       - /dev/bus/usb:/dev/bus/usb
