@@ -41,6 +41,10 @@ services:
       replicas: 1
       placement:
         constraints: [node.labels.features == sdr]
+      restart_policy:
+        condition: any
+        delay: 15s
+        window: 30s
 
 volumes:
   data:
