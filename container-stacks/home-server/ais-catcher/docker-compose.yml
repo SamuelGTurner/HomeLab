@@ -12,6 +12,7 @@ services:
     #   reverse_proxy_private:
     ports:
       - 8100:8100
+      - 8110:8110
     # labels:
       # traefik.enable: true
       # # Web Viewer Local
