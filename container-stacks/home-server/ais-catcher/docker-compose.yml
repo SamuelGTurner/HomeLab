@@ -4,8 +4,9 @@ services:
   # ais-catcher
   ais-catcher:
     image: ghcr.io/jvde-github/ais-catcher:edge
-    cap_add:
-      - SYS_ADMIN
+    # privileged: true
+    depends_on:
+      - device-mapping-manager
     # command: -C /etc/AIS-catcher/config.json
     volumes:
       - /dev/bus/usb:/dev/bus/usb
@@ -44,12 +45,38 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.labels.features == sdr]
+        constraints:
+        - node.labels.features == sdr
         max_replicas_per_node: 1
       restart_policy:
         condition: any
         delay: 15s
         window: 30s
+  
+  device-mapping-manager:
+    image: alpinelinux/docker-cli
+    entrypoint: docker
+    command: |
+      run
+      --rm
+      -i
+      --name device-manager
+      --privileged
+      --cgroupns=host
+      --pid=host
+      --userns=host
+      -v /sys:/host/sys
+      -v /var/run/docker.sock:/var/run/docker.sock
+      ghcr.io/allfro/allfro/device-mapping-manager:sha-0651661
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.labels.features == sdr
 
 volumes:
   data:
