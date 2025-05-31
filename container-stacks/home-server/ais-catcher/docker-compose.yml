@@ -2,7 +2,7 @@ services:
   # ais-catcher
   ais-catcher:
     image: ghcr.io/jvde-github/ais-catcher:edge
-    command: <ais-catcher command line options> -C /etc/AIS-catcher/config.json
+    command: -C /etc/AIS-catcher/config.json
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - data:/etc/AIS-catcher
