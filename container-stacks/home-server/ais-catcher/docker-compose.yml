@@ -40,7 +40,7 @@ services:
       mode: replicated
       replicas: 1
       placement:
-        constraints: [node.features == sdr]
+        constraints: [node.labels.features == sdr]
 
 volumes:
   data:
