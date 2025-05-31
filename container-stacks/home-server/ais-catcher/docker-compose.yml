@@ -3,11 +3,11 @@ version: "3.8"
 services:
   # ais-catcher
   ais-catcher:
-    image: ghcr.io/jvde-github/ais-catcher:edge
+    image: ghcr.io/jvde-github/ais-catcher-control:edge
     # privileged: true
     depends_on:
       - device-mapping-manager
-    command: -C /etc/AIS-catcher/config.json
+    # command: -C /etc/AIS-catcher/config.json
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - data:/etc/AIS-catcher
@@ -16,7 +16,7 @@ services:
     #   reverse_proxy_private:
     ports:
       - 8100:8100
-      # - 8110:8110
+      - 8110:8110
     # labels:
       # traefik.enable: true
       # # Web Viewer Local
