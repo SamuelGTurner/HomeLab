@@ -1,9 +1,7 @@
 services:
   # ais-catcher
   ais-catcher:
-    container_name: ais-catcher
-    image: "ghcr.io/jvde-github/ais-catcher-control:edge"
-    privileged: true
+    image: "ghcr.io/jvde-github/ais-catcher-control@sha256:0c65f9f071a4eda7fba5a6610d563c402b32cd638d7f0f447803f8d5c47ee804@sha256:69266c78f606495baf010cb83ac11220cee68a15c92051fdfda6f81d23066fc2"
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - data:/etc/AIS-catcher
