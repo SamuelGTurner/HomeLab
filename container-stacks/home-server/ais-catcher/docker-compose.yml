@@ -3,7 +3,7 @@ version: "3.8"
 services:
   # ais-catcher
   ais-catcher:
-    image: ghcr.io/jvde-github/aais-catcher-control:edge
+    image: ghcr.io/jvde-github/ais-catcher-control:edge
     # privileged: true
     depends_on:
       - device-mapping-manager
