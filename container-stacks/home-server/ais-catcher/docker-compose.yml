@@ -7,7 +7,7 @@ services:
     volumes:
       - /dev/bus/usb:/dev/bus/usb
       - data:/etc/AIS-catcher
-      - /home/${LOCALUSER}/ais/webassets:/etc/webassets
+      - /home/samue/ais/webassets:/etc/webassets
     # networks:
     #   reverse_proxy_private:
     ports:
