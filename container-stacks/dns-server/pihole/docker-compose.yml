@@ -38,8 +38,8 @@ services:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
       # - NET_ADMIN
       # - SYS_TIME
-      - SYS_NICE
-      - CHOWN
+      - CAP_SYS_NICE
+      - CAP_CHOWN
     # restart: unless-stopped
     # networks:
     #   reverse_proxy_private:
