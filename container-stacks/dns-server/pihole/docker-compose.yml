@@ -2,20 +2,16 @@ services:
   # Pi-hole - DNS Ad Block
   pihole:
     container_name: pihole
-    image: local/pihole:2025.04.0
-    build: build
-    pull_policy: build
-    hostname: pihole.${DOMAINNAME}
+    image: samuelgturner/pihole:2025.04.0
+    hostname: pihole
     ports:
-      - "${PIHOLE_IP}:53:53/tcp"
-      - "${PIHOLE_IP}:53:53/udp"
-      # DHCP Server
-      #- "${PIHOLE_IP}:67:67/udp"
+      - "53:53/tcp"
+      - "53:53/udp"
       # NTP server
-      #- "${PIHOLE_IP}:123:123/udp"
+      #- "123:123/udp"
     environment:
       TZ: ${TZ}
-      DOMAINNAME: ${DOMAINNAME}
+      DOMAINNAME: "{{.Node.Hostname}}"
       FTLCONF_dns_domain: local
       FTLCONF_dns_domainNeeded: true
       FTLCONF_dns_expandHosts: true
@@ -23,18 +19,19 @@ services:
       FTLCONF_dns_listeningMode: SINGLE
       FTLCONF_dns_piholePTR: HOSTNAME
       FTLCONF_dns_reply_host_force4: true
-      FTLCONF_dns_reply_host_IPv4: ${PIHOLE_IP}
+      FTLCONF_dns_reply_host_IPv4: "{{.Node.Labels.LabelName}}"
       FTLCONF_dns_revServers: ${FTLCONF_dns_revServers}
       FTLCONF_dns_upstreams: '1.1.1.1;1.0.0.1'
       FTLCONF_misc_dnsmasq_lines: ${FTLCONF_misc_dnsmasq_lines}
       FTLCONF_ntp_ipv4_active: false
       FTLCONF_ntp_ipv6_active: false
       FTLCONF_ntp_sync_active: false
-      FTLCONF_webserver_api_password: ${PIHOLE_PASSWORD}
-      FTLCONF_webserver_domain: pihole.${DOMAINNAME}
+      FTLCONF_webserver_api_password: /run/secrets/pihole_password
+      FTLCONF_webserver_domain: "pihole.{{.Node.Hostname}}"
       FTLCONF_webserver_interface_theme: default-dark
       FTLCONF_webserver_port: 80o
-
+    secrets:
+      - pihole_password
     volumes:
       - './etc-pihole:/etc/pihole'
     cap_add:
@@ -43,18 +40,28 @@ services:
       # - SYS_TIME
       - SYS_NICE
     restart: unless-stopped
-    networks:
-      reverse_proxy_private:
-    labels:
-      traefik.enable: true
-      # HTTP Routers
-      traefik.http.routers.pihole.entrypoints: web
-      traefik.http.routers.pihole.rule: Host(`pihole.${DOMAINNAME}`)
-      # Middlewares
-      # traefik.http.routers.pihole.middlewares: chain-oauth@file
-      # HTTP Services
-      traefik.http.routers.pihole.service: pihole-svc
-      traefik.http.services.pihole-svc.loadbalancer.server.port: 80
-    profiles:
-      - prod
-      - dev
+    # networks:
+    #   reverse_proxy_private:
+    # labels:
+    #   traefik.enable: true
+    #   # HTTP Routers
+    #   traefik.http.routers.pihole.entrypoints: web
+    #   traefik.http.routers.pihole.rule: Host(`pihole.${DOMAINNAME}`)
+    #   # Middlewares
+    #   # traefik.http.routers.pihole.middlewares: chain-oauth@file
+    #   # HTTP Services
+    #   traefik.http.routers.pihole.service: pihole-svc
+    #   traefik.http.services.pihole-svc.loadbalancer.server.port: 80
+    deploy:
+      mode: replicated
+      replicas: 2
+      placement:
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: any
+        delay: 15s
+        window: 30s
+
+secrets:
+      pihole_password:
+        external: true
