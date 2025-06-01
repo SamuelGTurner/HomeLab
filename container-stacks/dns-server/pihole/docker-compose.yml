@@ -66,7 +66,7 @@ volumes:
   data:
     driver_opts:
       type: "nfs"
-      o: "nfsvers=3,addr=192.168.0.200,nolock,rw"
+      o: "addr=192.168.0.200,nolock,rw"
       device: ":/volume2/docker-swarm/pihole/data"
 
 secrets:
