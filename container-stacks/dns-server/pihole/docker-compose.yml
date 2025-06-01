@@ -33,8 +33,7 @@ services:
     secrets:
       - pihole_password
     volumes:
-      # - data:/etc/pihole
-      - /swarm/pihole/data:/etc/pihole
+      - data:/etc/pihole
     cap_add:
       # See https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
       # - NET_ADMIN
@@ -63,12 +62,12 @@ services:
         condition: any
         delay: 15s
         window: 30s
-# volumes:
-#   data:
-#     driver_opts:
-#       type: "nfs"
-#       o: "addr=192.168.0.200,nolock,rw"
-#       device: ":/volume2/docker-swarm/pihole/data"
+volumes:
+  data:
+    driver_opts:
+      type: "nfs"
+      o: "nfsvers=3,addr=192.168.0.200,nolock,rw"
+      device: ":/volume2/docker-swarm/pihole/data"
 
 secrets:
       pihole_password:
