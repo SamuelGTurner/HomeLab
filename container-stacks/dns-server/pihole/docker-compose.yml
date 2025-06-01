@@ -39,6 +39,7 @@ services:
       # - NET_ADMIN
       # - SYS_TIME
       - SYS_NICE
+      - CHOWN
     # restart: unless-stopped
     # networks:
     #   reverse_proxy_private:
