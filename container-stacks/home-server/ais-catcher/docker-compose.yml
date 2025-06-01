@@ -1,50 +1,83 @@
+version: "3.8"
+
 services:
-  # ais-catcher
   ais-catcher:
-    container_name: ais-catcher
-    image: "ghcr.io/jvde-github/ais-catcher-control:edge"
-    # security_opt:
-    #   - no-new-privileges:true
-    restart: unless-stopped
-    privileged: true
+    image: ghcr.io/jvde-github/ais-catcher-control:edge
+    depends_on:
+      - device-mapping-manager
     volumes:
       - /dev/bus/usb:/dev/bus/usb
-      - ais-catcher-data:/etc/AIS-catcher
-      - /home/${LOCALUSER}/ais/webassets:/etc/webassets
-    networks:
-      reverse_proxy_private:
-      traefik-kop:
+      - data:/etc/AIS-catcher
+      - /home/samue/ais/webassets:/etc/webassets
+    # networks:
+    #   reverse_proxy_private:
     ports:
       - 8100:8100
-    labels:
-      kop.namespace: kop
-      traefik.enable: true
-      # Web Viewer Local
-      traefik.http.routers.ais.entrypoints: web
-      traefik.http.routers.ais.rule: Host(`ais.${DOMAINNAME}`)
-      traefik.http.routers.ais.service: ais-svc
-      traefik.http.services.ais-svc.loadbalancer.server.port: 8100
-      # Admin Local
-      traefik.http.routers.ais-admin.entrypoints: web
-      traefik.http.routers.ais-admin.rule: Host(`ais-admin.${DOMAINNAME}`)
-      traefik.http.routers.ais-admin.service: ais-admin-svc
-      traefik.http.services.ais-admin-svc.loadbalancer.server.port: 8110
-      # Web Viewer Public
-      traefik.http.routers.ais-public.service: ais-public-svc
-      traefik.http.services.ais-public-svc.loadbalancer.server.url: ais.${DOMAINNAME}
-      traefik.http.routers.ais-public.rule: Host(`ais.${ROOT_DOMAIN}`)
-      traefik.http.routers.ais-public.entrypoints: websecure
-      traefik.http.routers.ais-public.tls: true
-      traefik.http.routers.ais-public.tls.certresolver: letsencrypt
-      traefik.http.routers.ais-public.tls.domains[0].main: "${ROOT_DOMAIN}"
-      traefik.http.routers.ais-public.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
-      traefik.http.routers.ais-public.middlewares: ais-public2
-      traefik.http.middlewares.ais-public2.replacepathregex.regex: ^/(robots.txt)"
-      traefik.http.middlewares.ais-public2.replacepathregex.replacement: /
-
-    profiles:
-      - prod
+      - 8110:8110
+    # labels:
+      # traefik.enable: true
+      # # Web Viewer Local
+      # traefik.http.routers.ais.entrypoints: web
+      # traefik.http.routers.ais.rule: Host(`ais.${DOMAINNAME}`)
+      # traefik.http.routers.ais.service: ais-svc
+      # traefik.http.services.ais-svc.loadbalancer.server.port: 8100
+      # # Admin Local
+      # traefik.http.routers.ais-admin.entrypoints: web
+      # traefik.http.routers.ais-admin.rule: Host(`ais-admin.${DOMAINNAME}`)
+      # traefik.http.routers.ais-admin.service: ais-admin-svc
+      # traefik.http.services.ais-admin-svc.loadbalancer.server.port: 8110
+      # # Web Viewer Public
+      # traefik.http.routers.ais-public.service: ais-public-svc
+      # traefik.http.services.ais-public-svc.loadbalancer.server.url: ais.${DOMAINNAME}
+      # traefik.http.routers.ais-public.rule: Host(`ais.${ROOT_DOMAIN}`)
+      # traefik.http.routers.ais-public.entrypoints: websecure
+      # traefik.http.routers.ais-public.tls: true
+      # traefik.http.routers.ais-public.tls.certresolver: letsencrypt
+      # traefik.http.routers.ais-public.tls.domains[0].main: "${ROOT_DOMAIN}"
+      # traefik.http.routers.ais-public.tls.domains[0].sans: "*.${ROOT_DOMAIN}"
+      # traefik.http.routers.ais-public.middlewares: ais-public2
+      # traefik.http.middlewares.ais-public2.replacepathregex.regex: ^/(robots.txt)"
+      # traefik.http.middlewares.ais-public2.replacepathregex.replacement: /
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints:
+        - node.labels.features == sdr
+        max_replicas_per_node: 1
+      restart_policy:
+        condition: any
+        delay: 15s
+        window: 30s
+  
+  device-mapping-manager:
+    image: alpinelinux/docker-cli
+    entrypoint: docker
+    command: |
+      run
+      --rm
+      -i
+      --name device-manager
+      --privileged
+      --cgroupns=host
+      --pid=host
+      --userns=host
+      -v /sys:/host/sys
+      -v /var/run/docker.sock:/var/run/docker.sock
+      ghcr.io/allfro/allfro/device-mapping-manager:sha-0651661
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    deploy:
+      mode: global
+      restart_policy:
+        condition: any
+      placement:
+        constraints:
+          - node.labels.features == sdr
 
 volumes:
-  ais-catcher-data:
-    name: ais-catcher-data
+  data:
+    driver_opts:
+      type: "nfs"
+      o: "addr=192.168.0.200,nolock,rw"
+      device: ":/volume2/docker-swarm/ais-catcher/data"
