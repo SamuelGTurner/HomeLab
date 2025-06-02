@@ -5,7 +5,7 @@ services:
     image: "ghcr.io/home-assistant/home-assistant:stable"
     restart: unless-stopped
     volumes:
-      - ./config:/config
+      - home-assistant-data:/config
       - /etc/localtime:/etc/localtime:ro
       - /run/dbus:/run/dbus:ro
       - /dev/ttyUSB0:/dev/ttyUSB0
@@ -24,5 +24,7 @@ services:
       traefik.http.routers.home-assistant.service: home-assistant-svc
       traefik.http.services.home-assistant-svc.loadbalancer.server.port: 8123
       traefik.docker.network: ${HA_NETWORK}
-    profiles:
-      - prod
+
+volumes:
+  home-assistant-data:
+    name: home-assistant-data
