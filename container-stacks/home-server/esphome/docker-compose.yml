@@ -1,0 +1,22 @@
+version: '3'
+services:
+  esphome:
+    container_name: esphome
+    image: ghcr.io/esphome/esphome:2025.5
+    # ports:
+    #   - 6052:6052
+    volumes:
+      - esphome-data:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    # privileged: true
+    network_mode: host
+    environment:
+      - USERNAME=test
+      - PASSWORD=ChangeMe
+      # - ESPHOME_DASHBOARD_USE_PING=true
+
+volumes:
+  esphome-data:
+    name: esphome-data 
+      
