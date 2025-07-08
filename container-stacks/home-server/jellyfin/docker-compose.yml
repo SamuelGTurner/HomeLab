@@ -8,8 +8,9 @@ services:
       - jellyfin-config:/config
       - jellyfin-cache:/cache
       - type: bind
-        source: /mnt/RaspberryPi-HDD/videos/
+        source: /nfs/media-library
         target: /media
+        read_only: true
     # Optional - may be necessary for docker healthcheck to pass if running in host network mode
     extra_hosts:
       - 'host.docker.internal:host-gateway'
