@@ -1,0 +1,69 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun:v3
+    container_name: gluetun
+    hostname: gluetun
+    cap_add:
+    - NET_ADMIN
+    devices:
+    - /dev/net/tun:/dev/net/tun
+    ports:
+    - 6881:6881
+    - 6881:6881/udp
+    - 8085:8085 # qbittorrent
+    - 8989:8989 # Sonarr
+    - 9696:9696 # Prowlarr
+    volumes:
+    - gluetun:/gluetun
+    environment:
+    # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
+    - VPN_SERVICE_PROVIDER=nordvpn
+    - VPN_TYPE=wireguard
+    - WIREGUARD_PRIVATE_KEY=${WIREGUARD_PRIVATE_KEY}
+    - SERVER_COUNTRIES=Netherlands,United States,Germany
+    - TZ=Europe/London
+    - UPDATER_PERIOD=24h
+  # qbittorrent:
+  #   image: lscr.io/linuxserver/qbittorrent
+  #   container_name: qbittorrent
+  #   network_mode: "service:gluetun"
+  #   environment:
+  #   - PUID=1000
+  #   - PGID=1000
+  #   - TZ=Europe/London
+  #   - WEBUI_PORT=8085
+  #   volumes:
+  #   - /home/ubuntu/docker/arr-stack/qbittorrent:/config
+  #   - /home/ubuntu/docker/arr-stack/qbittorrent/downloads:/downloads
+  #   depends_on:
+  #   - gluetun
+  #   restart: always
+
+  # sonarr:
+  #   image: lscr.io/linuxserver/sonarr:latest
+  #   container_name: sonarr
+  #   network_mode: "service:gluetun"
+  #   environment:
+  #   - PUID=1000
+  #   - PGID=1000
+  #   - TZ=Etc/UTC
+  #   volumes:
+  #   - /home/ubuntu/docker/arr-stack/sonarr/data:/config
+  #   - /home/ubuntu/docker/arr-stack/sonarr/tvseries:/tv #optional
+  #   - /home/ubuntu/docker/arr-stack/sonarr/downloadclient-downloads:/downloads #optional
+  #   restart: unless-stopped
+
+  # prowlarr:
+  #   image: lscr.io/linuxserver/prowlarr:latest
+  #   container_name: prowlarr
+  #   network_mode: "service:gluetun"
+  #   environment:
+  #   - PUID=1000
+  #   - PGID=1000
+  #   - TZ=Etc/UTC
+  #   volumes:
+  #   - /home/ubuntu/docker/arr-stack/prowlarr/data:/config
+  #   restart: unless-stopped
+
+volumes:
+  gluetun:
