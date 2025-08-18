@@ -18,8 +18,8 @@ services:
       VPN_SERVICE_PROVIDER: nordvpn
       VPN_TYPE: wireguard
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
-      SERVER_COUNTRIES: Netherlands,United States,Germany
-      TZ: Europe/London
+      SERVER_COUNTRIES: ${WIREGUARD_COUNTRY}
+      TZ: ${TZ}
       UPDATER_PERIOD: 24h
     restart: unless-stopped
   # qbittorrent:
