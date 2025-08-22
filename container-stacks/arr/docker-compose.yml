@@ -13,7 +13,7 @@ services:
     - 8989:8989 # Sonarr
     - 9696:9696 # Prowlarr
     networks:
-      arr:
+      gluetun:
     volumes:
     - gluetun:/gluetun
     environment:
@@ -42,8 +42,6 @@ services:
       gluetun:
         condition: service_healthy
         restart: true
-    networks:
-      arr:
     volumes:
     - qbittorrent:/config
     - /data/arr:/data
@@ -62,8 +60,6 @@ services:
       gluetun:
         condition: service_healthy
         restart: true
-    networks:
-      arr:
     volumes:
     - /etc/localtime:/etc/localtime:ro
     - nzbget:/config
@@ -82,8 +78,6 @@ services:
       gluetun:
         condition: service_healthy
         restart: true
-    networks:
-      arr:
     volumes:
     - prowlarr:/config
     - /data/arr:/data
@@ -101,8 +95,6 @@ services:
       gluetun:
         condition: service_healthy
         restart: true
-    networks:
-      arr:
     volumes:
     - sonarr:/config
     - /data/arr:/data
@@ -120,8 +112,6 @@ services:
       gluetun:
         condition: service_healthy
         restart: true
-    networks:
-      arr:
     volumes:
     - /etc/localtime:/etc/localtime:ro
     - radarr:/config
@@ -133,8 +123,8 @@ services:
     network_mode: service:gluetun
 
 networks:
-  arr:
-    name: arr
+  gluetun:
+    name: gluetun
 
 volumes:
   gluetun:
