@@ -12,8 +12,6 @@ services:
     - 8085:8085 # qbittorrent
     - 8989:8989 # Sonarr
     - 9696:9696 # Prowlarr
-    - 34974:34974 # qbittorrent
-    - 34974:34974/udp # qbittorrent
     networks:
       gluetun:
     volumes:
@@ -54,7 +52,6 @@ services:
       PGID: ${PGID}
       TZ: ${TZ}
       WEBUI_PORT: 8085
-      TORRENTING_PORT: ${TORRENTING_PORT}
     network_mode: service:gluetun
 
   nzbget:
