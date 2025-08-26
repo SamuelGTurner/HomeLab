@@ -54,6 +54,7 @@ services:
       PGID: ${PGID}
       TZ: ${TZ}
       WEBUI_PORT: 8085
+      TORRENTING_PORT: ${TORRENTING_PORT}
     network_mode: service:gluetun
 
   nzbget:
