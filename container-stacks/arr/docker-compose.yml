@@ -8,8 +8,6 @@ services:
     restart: unless-stopped
     ports:
     - 6789:6789 # nzbget
-    - 6881:6881
-    - 6881:6881/udp
     - 7878:7878 # Radarr
     - 8085:8085 # qbittorrent
     - 8989:8989 # Sonarr
@@ -25,6 +23,7 @@ services:
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
       SERVER_COUNTRIES: ${WIREGUARD_COUNTRY}
       UPDATER_PERIOD: 24h
+      WIREGUARD_MTU: ${WIREGUARD_MTU}
     cap_add:
     - NET_ADMIN
     devices:
@@ -54,7 +53,6 @@ services:
       PGID: ${PGID}
       TZ: ${TZ}
       WEBUI_PORT: 8085
-      TORRENTING_PORT: ${TORRENTING_PORT}
     network_mode: service:gluetun
 
   nzbget:
