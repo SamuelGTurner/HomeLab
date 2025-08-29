@@ -9,7 +9,6 @@ services:
     ports:
     - 6789:6789 # nzbget
     - 8085:8085 # qbittorrent
-    - 9696:9696 # prowlarr
     networks:
       gluetun:
     volumes:
@@ -74,10 +73,10 @@ services:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
     restart: unless-stopped
-    depends_on:
+    ports:
+    - 9696:9696 # temp until Traefik
+    networks:
       gluetun:
-        condition: service_healthy
-        restart: true
     volumes:
     - prowlarr:/config
     - ${PATH_DATA}:/data
@@ -85,7 +84,6 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
-    network_mode: service:gluetun
 
   sonarr:
     container_name: sonarr
