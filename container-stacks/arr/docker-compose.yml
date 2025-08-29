@@ -147,6 +147,7 @@ services:
     - 1900:1900/udp
     networks:
       gluetun:
+      reverse_proxy:
     volumes:
     - jellyfin:/config
     - ${PATH_DATA}:/data
@@ -155,10 +156,18 @@ services:
       PGID: ${PGID}
       TZ: ${TZ}
       # JELLYFIN_PublishedServerUrl: http://192.168.0.5 #optional
+    labels:
+      traefik.enable: true
+      traefik.http.routers.jellyfin.entrypoints: web
+      traefik.http.routers.jellyfin.rule: Host(`jellyfin.${DOMAIN_LOCAL}`)
+      traefik.http.routers.jellyfin.service: jellyfin-svc
+      traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
 
 networks:
   gluetun:
     name: gluetun
+  reverse_proxy:
+    external: true
 
 volumes:
   gluetun:
