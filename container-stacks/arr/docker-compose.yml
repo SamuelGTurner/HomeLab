@@ -1,5 +1,5 @@
 ---
-name: arr
+name: media_library
 
 services:
   gluetun:
@@ -8,17 +8,15 @@ services:
     restart: unless-stopped
     ports:
     - 6789:6789 # nzbget
-    - 7878:7878 # Radarr
     - 8085:8085 # qbittorrent
-    - 8989:8989 # Sonarr
-    - 9696:9696 # Prowlarr
+    - 9696:9696 # prowlarr
     networks:
       gluetun:
     volumes:
     - gluetun:/gluetun
     environment:
       TZ: ${TZ}
-      VPN_SERVICE_PROVIDER: nordvpn
+      VPN_SERVICE_PROVIDER: ${VPN_SERVICE_PROVIDER}
       VPN_TYPE: wireguard
       WIREGUARD_PRIVATE_KEY: ${WIREGUARD_PRIVATE_KEY}
       SERVER_COUNTRIES: ${WIREGUARD_COUNTRY}
@@ -39,7 +37,7 @@ services:
 
   qbittorrent:
     container_name: qbittorrent
-    image: lscr.io/linuxserver/qbittorrent
+    image: lscr.io/linuxserver/qbittorrent:latest
     restart: unless-stopped
     depends_on:
       gluetun:
@@ -47,7 +45,7 @@ services:
         restart: true
     volumes:
     - qbittorrent:/config
-    - /data/arr:/data
+    - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -64,9 +62,8 @@ services:
         condition: service_healthy
         restart: true
     volumes:
-    - /etc/localtime:/etc/localtime:ro
     - nzbget:/config
-    - /data/arr:/data
+    - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -83,7 +80,7 @@ services:
         restart: true
     volumes:
     - prowlarr:/config
-    - /data/arr:/data
+    - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -94,36 +91,69 @@ services:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:latest
     restart: unless-stopped
-    depends_on:
+    ports:
+    - 8989:8989 # temp until Traefik
+    networks:
       gluetun:
-        condition: service_healthy
-        restart: true
     volumes:
     - sonarr:/config
-    - /data/arr:/data
+    - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      TZ: ${TZ}
-    network_mode: service:gluetun
+      TZ: ${TZ
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     restart: unless-stopped
-    depends_on:
+    ports:
+    - 7878:7878 # temp until Traefik
+    networks:
       gluetun:
-        condition: service_healthy
-        restart: true
     volumes:
-    - /etc/localtime:/etc/localtime:ro
     - radarr:/config
-    - /data/arr:/data
+    - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
-    network_mode: service:gluetun
+
+  bazarr:
+    image: lscr.io/linuxserver/bazarr:latest
+    container_name: bazarr
+    restart: unless-stopped
+    ports:
+    - 6767:6767 # temp until Traefik
+    networks:
+      gluetun:
+    volumes:
+    - bazarr:/config
+    - ${PATH_DATA}:/data
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    ports:
+    - 8096:8096 # temp until Traefik
+    - 8920:8920 # ssl
+    - 7359:7359/udp
+    - 1900:1900/udp
+    networks:
+      gluetun:
+    volumes:
+    - jellyfin:/config
+    - ${PATH_DATA}:/data
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+      # JELLYFIN_PublishedServerUrl: http://192.168.0.5 #optional
 
 networks:
   gluetun:
@@ -136,3 +166,5 @@ volumes:
   prowlarr:
   sonarr:
   radarr:
+  bazarr:
+  jellyfin:
