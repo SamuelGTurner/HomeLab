@@ -158,7 +158,8 @@ services:
       # JELLYFIN_PublishedServerUrl: http://192.168.0.5 #optional
     labels:
       traefik.enable: true
-      traefik.http.routers.jellyfin.entrypoints: web
+      traefik.http.routers.jellyfin.entrypoints: websecure
+      traefik.http.routers.jellyfin.tls: false
       traefik.http.routers.jellyfin.rule: Host(`jellyfin.${DOMAIN_LOCAL}`)
       traefik.http.routers.jellyfin.service: jellyfin-svc
       traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
