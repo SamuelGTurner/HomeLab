@@ -101,7 +101,7 @@ services:
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
-      TZ: ${TZ
+      TZ: ${TZ}
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
