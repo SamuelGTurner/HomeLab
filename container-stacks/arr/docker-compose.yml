@@ -142,7 +142,7 @@ services:
     restart: unless-stopped
     ports:
     - 8096:8096 # temp until Traefik
-    - 8920:8920 # ssl
+    # - 8920:8920 # ssl
     - 7359:7359/udp
     - 1900:1900/udp
     networks:
@@ -162,7 +162,7 @@ services:
       traefik.http.routers.jellyfin.tls: false
       traefik.http.routers.jellyfin.rule: Host(`jellyfin.${DOMAIN_LOCAL}`)
       traefik.http.routers.jellyfin.service: jellyfin-svc
-      traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
+      traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8920
 
 networks:
   gluetun:
