@@ -18,9 +18,8 @@ networks:
       com.docker.network.driver.mtu: 1492
 
 include:
-  - ais-catcher/docker-compose.yml
-  - home-assistant/docker-compose.yml
-  - it-tools/docker-compose.yml
-  - jellyfin/docker-compose.yml
-  # - pagermon/docker-compose.yml
-  - reverse-proxy-redis/docker-compose.yml
+- ais-catcher/docker-compose.yml
+- home-assistant/docker-compose.yml
+- it-tools/docker-compose.yml
+# - pagermon/docker-compose.yml
+- reverse-proxy-redis/docker-compose.yml
