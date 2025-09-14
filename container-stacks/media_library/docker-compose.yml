@@ -11,6 +11,7 @@ services:
     - 8085:8085 # qbittorrent
     networks:
       gluetun:
+      reverse_proxy:
     volumes:
     - gluetun:/gluetun
     environment:
@@ -92,6 +93,7 @@ services:
     - 9696:9696 # temp until Traefik
     networks:
       gluetun:
+      reverse_proxy:
     volumes:
     - prowlarr:/config
     - ${PATH_DATA}:/data
@@ -115,6 +117,7 @@ services:
     - 8989:8989 # temp until Traefik
     networks:
       gluetun:
+      reverse_proxy:
     volumes:
     - sonarr:/config
     - ${PATH_DATA}:/data
@@ -138,6 +141,7 @@ services:
     - 7878:7878 # temp until Traefik
     networks:
       gluetun:
+      reverse_proxy:
     volumes:
     - radarr:/config
     - ${PATH_DATA}:/data
@@ -161,6 +165,7 @@ services:
     - 6767:6767 # temp until Traefik
     networks:
       gluetun:
+      reverse_proxy:
     volumes:
     - bazarr:/config
     - ${PATH_DATA}:/data
