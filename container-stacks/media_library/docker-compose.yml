@@ -160,9 +160,9 @@ services:
       traefik.enable: true
       traefik.http.routers.jellyfin.entrypoints: websecure
       traefik.http.routers.jellyfin.tls: false
-      traefik.http.routers.jellyfin.rule: Host(`jellyfin.${DOMAIN_LOCAL}`)
+      traefik.http.routers.jellyfin.rule: Host(`media.${DOMAIN_PUBLIC}`)
       traefik.http.routers.jellyfin.service: jellyfin-svc
-      traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8920
+      traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
 
 networks:
   gluetun:
