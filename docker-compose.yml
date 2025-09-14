@@ -1,0 +1,21 @@
+# Template Layout
+
+services:
+  container:
+    image: container:latest
+    container_name: container
+    restart: unless-stopped
+    security_opt:
+    - no-new-privileges:true
+    command:
+    - -- container
+    ports:
+    - 80:80
+    networks:
+      container:
+    volumes:
+    - container:/container
+    environment:
+      container: ${container}
+    labels:
+      container: container
