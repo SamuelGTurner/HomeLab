@@ -6,9 +6,9 @@ services:
     container_name: gluetun
     image: qmcgaw/gluetun:v3
     restart: unless-stopped
-    # ports:
+    ports:
     # - 6789:6789 # nzbget
-    # - 8085:8085 # qbittorrent
+    - 8085:8085 # qbittorrent
     networks:
       gluetun:
       reverse_proxy:
