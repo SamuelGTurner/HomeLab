@@ -6,9 +6,9 @@ services:
     container_name: gluetun
     image: qmcgaw/gluetun:v3
     restart: unless-stopped
-    ports:
-    - 6789:6789 # nzbget
-    - 8085:8085 # qbittorrent
+    # ports:
+    # - 6789:6789 # nzbget
+    # - 8085:8085 # qbittorrent
     networks:
       gluetun:
     volumes:
@@ -36,6 +36,18 @@ services:
       start_period: 30s
       start_interval: 5s
     hostname: gluetun
+    labels:
+      traefik.enable: true
+      traefik.http.routers.qbittorrent.entrypoints: websecure
+      traefik.http.routers.qbittorrent.tls: true
+      traefik.http.routers.qbittorrent.rule: Host(`qbittorrent.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.qbittorrent.service: qbittorrent-svc
+      traefik.http.services.qbittorrent-svc.loadbalancer.server.port: 8085
+      traefik.http.routers.nzbget.entrypoints: websecure
+      traefik.http.routers.nzbget.tls: true
+      traefik.http.routers.nzbget.rule: Host(`nzbget.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.nzbget.service: nzbget-svc
+      traefik.http.services.nzbget-svc.loadbalancer.server.port: 6789
 
   qbittorrent:
     container_name: qbittorrent
@@ -76,8 +88,8 @@ services:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
     restart: unless-stopped
-    ports:
-    - 9696:9696 # temp until Traefik
+    # ports:
+    # - 9696:9696 # temp until Traefik
     networks:
       gluetun:
     volumes:
@@ -87,13 +99,20 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.prowlarr.entrypoints: websecure
+      traefik.http.routers.prowlarr.tls: true
+      traefik.http.routers.prowlarr.rule: Host(`prowlarr.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.prowlarr.service: prowlarr-svc
+      traefik.http.services.prowlarr-svc.loadbalancer.server.port: 9696
 
   sonarr:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:latest
     restart: unless-stopped
-    ports:
-    - 8989:8989 # temp until Traefik
+    # ports:
+    # - 8989:8989 # temp until Traefik
     networks:
       gluetun:
     volumes:
@@ -103,13 +122,20 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.sonarr.entrypoints: websecure
+      traefik.http.routers.sonarr.tls: true
+      traefik.http.routers.sonarr.rule: Host(`sonarr.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.sonarr.service: sonarr-svc
+      traefik.http.services.sonarr-svc.loadbalancer.server.port: 8989
 
   radarr:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     restart: unless-stopped
-    ports:
-    - 7878:7878 # temp until Traefik
+    # ports:
+    # - 7878:7878 # temp until Traefik
     networks:
       gluetun:
     volumes:
@@ -119,13 +145,20 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.radarr.entrypoints: websecure
+      traefik.http.routers.radarr.tls: true
+      traefik.http.routers.radarr.rule: Host(`radarr.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.radarr.service: radarr-svc
+      traefik.http.services.radarr-svc.loadbalancer.server.port: 7878
 
   bazarr:
     image: lscr.io/linuxserver/bazarr:latest
     container_name: bazarr
     restart: unless-stopped
-    ports:
-    - 6767:6767 # temp until Traefik
+    # ports:
+    # - 6767:6767 # temp until Traefik
     networks:
       gluetun:
     volumes:
@@ -135,16 +168,21 @@ services:
       PUID: ${PUID}
       PGID: ${PGID}
       TZ: ${TZ}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bazarr.entrypoints: websecure
+      traefik.http.routers.bazarr.tls: true
+      traefik.http.routers.bazarr.rule: Host(`bazarr.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.bazarr.service: bazarr-svc
+      traefik.http.services.bazarr-svc.loadbalancer.server.port: 6767
 
   jellyfin:
     image: lscr.io/linuxserver/jellyfin:latest
     container_name: jellyfin
     restart: unless-stopped
     ports:
-    - 8096:8096 # temp until Traefik
-    # - 8920:8920 # ssl
-    - 7359:7359/udp
-    - 1900:1900/udp
+    # - 8096:8096 # temp until Traefik
+    - 7359:7359/udp # autodiscovery
     networks:
       gluetun:
       reverse_proxy:
