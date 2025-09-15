@@ -62,3 +62,8 @@ services:
       traefik.http.routers.api.tls: true
       traefik.http.routers.api.tls.certresolver: letsencrypt
       traefik.http.services.api.loadbalancer.server.port: 8080
+      traefik.http.routers.nas.rule: Host(`traefik.${ROOT_DOMAIN}`)
+      traefik.http.routers.nas.entrypoints: websecure
+      traefik.http.routers.nas.service: nas
+      traefik.http.services.nas.loadbalancer.server.url: https://athena.local
+      traefik.http.services.nas.loadbalancer.server.port: 9443
