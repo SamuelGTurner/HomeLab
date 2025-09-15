@@ -65,5 +65,4 @@ services:
       traefik.http.routers.nas.rule: Host(`nas.${ROOT_DOMAIN}`)
       traefik.http.routers.nas.entrypoints: websecure
       traefik.http.routers.nas.service: nas
-      traefik.http.services.nas.loadbalancer.server.url: https://athena.local
-      traefik.http.services.nas.loadbalancer.server.port: 9443
+      traefik.http.services.nas.loadbalancer.server.url: https://athena.local:9443
