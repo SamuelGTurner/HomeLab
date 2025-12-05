@@ -1,0 +1,18 @@
+services:
+  factorio:
+    image: factoriotools/factorio:stable
+    build:
+      context: build
+      args:
+      # Check buildinfo.json for supported versions and SHAs
+      # https://github.com/factoriotools/factorio-docker/blob/master/buildinfo.json
+      - VERSION=2.0.72
+      - SHA256=cf3057340dbc9d82bd5161949ae3e7b8fad912ec7ca07b8a3151e0424a5568cd
+    pull_policy: build
+    restart: unless-stopped
+    container_name: factorio
+    volumes:
+    - '/opt/factorio:/factorio'
+    ports:
+    - '27015:27015/tcp'
+    - '34197:34197/udp'
