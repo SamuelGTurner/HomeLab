@@ -153,7 +153,6 @@ services:
     container_name: bazarr
     restart: unless-stopped
     networks:
-      gluetun:
       reverse_proxy:
     volumes:
     - bazarr:/config
@@ -177,7 +176,6 @@ services:
     ports:
     - 7359:7359/udp # autodiscovery
     networks:
-      gluetun:
       reverse_proxy:
     volumes:
     - jellyfin:/config
