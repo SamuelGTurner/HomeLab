@@ -1,0 +1,39 @@
+---
+name: backup
+
+services:
+  zerobyte:
+    container_name: zerobyte
+    image: ghcr.io/nicotsx/zerobyte:v0.18
+    restart: unless-stopped
+    networks:
+      reverse_proxy:
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    - zerobyte:/var/lib/zerobyte
+    - home-assistant-data:/volumes/home-assistant-data
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    cap_add:
+    - SYS_ADMIN
+    devices:
+    - /dev/fuse:/dev/fuse
+
+    labels:
+      traefik.enable: true
+      traefik.http.routers.zerobyte.entrypoints: websecure
+      traefik.http.routers.zerobyte.tls: true
+      traefik.http.routers.zerobyte.rule: Host(`zerobyte.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.zerobyte.service: zerobyte-svc
+      traefik.http.services.zerobyte-svc.loadbalancer.server.port: 4096
+
+networks:
+  reverse_proxy:
+    external: true
+
+volumes:
+  zerobyte:
+  home-assistant-data:
+    external: true
