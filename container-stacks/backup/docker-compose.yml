@@ -11,7 +11,7 @@ services:
     volumes:
     - /etc/localtime:/etc/localtime:ro
     - zerobyte:/var/lib/zerobyte
-    - media_library_sonarr:/volumes/media_library_sonarr
+    - media_library_sonarr:/volumes/media_library_sonarr:ro
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
