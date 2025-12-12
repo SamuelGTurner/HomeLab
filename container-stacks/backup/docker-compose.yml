@@ -13,6 +13,7 @@ services:
     - zerobyte:/var/lib/zerobyte
     - /backup:/backup
     - media_library_sonarr:/volumes/media_library_sonarr:ro
+    - media_library_radarr:/volumes/media_library_radarr:ro
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -37,4 +38,6 @@ networks:
 volumes:
   zerobyte:
   media_library_sonarr:
+    external: true
+  media_library_radarr:
     external: true
