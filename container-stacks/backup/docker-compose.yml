@@ -11,7 +11,7 @@ services:
     volumes:
     - /etc/localtime:/etc/localtime:ro
     - zerobyte:/var/lib/zerobyte
-    - home-assistant-data:/volumes/home-assistant-data
+    - media_library_sonarr:/volumes/media_library_sonarr
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -35,5 +35,5 @@ networks:
 
 volumes:
   zerobyte:
-  home-assistant-data:
+  media_library_sonarr:
     external: true
