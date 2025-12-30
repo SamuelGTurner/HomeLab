@@ -16,6 +16,9 @@ services:
     volumes:
     - wireguard:/etc/wireguard
     - /lib/modules:/lib/modules:ro
+    environment:
+      DISABLE_IPV6: true
+      HOST: ${LOCAL_IP}
     cap_add:
     - NET_ADMIN
     - SYS_MODULE
