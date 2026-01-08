@@ -18,7 +18,7 @@ services:
     - /lib/modules:/lib/modules:ro
     environment:
       DISABLE_IPV6: ${DISABLE_IPV6}
-      HOST: ${LOCAL_IP}
+      # HOST: ${LOCAL_IP}
     cap_add:
     - NET_ADMIN
     - SYS_MODULE
