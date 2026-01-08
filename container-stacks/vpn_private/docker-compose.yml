@@ -11,14 +11,18 @@ services:
     networks:
       wg:
         ipv4_address: 10.42.42.42
-        ipv6_address: fdcc:ad94:bacf:61a3::2a
+        ipv6_address: fdcc:ad94:bacf:61a3::2a+
+        interface_name: eth0
+        gw_priority: 1
       reverse_proxy:
+        interface_name: eth1
+        gw_priority: 0
     volumes:
     - wireguard:/etc/wireguard
     - /lib/modules:/lib/modules:ro
     environment:
       DISABLE_IPV6: ${DISABLE_IPV6}
-      # HOST: ${LOCAL_IP}
+      HOST: ${LOCAL_IP}
     cap_add:
     - NET_ADMIN
     - SYS_MODULE
@@ -30,6 +34,7 @@ services:
     - net.ipv6.conf.default.forwarding=1
     labels:
       traefik.enable: true
+      traefik.docker.network: reverse_proxy
       traefik.http.routers.wg-easy.entrypoints: websecure
       traefik.http.routers.wg-easy.tls: false
       traefik.http.routers.wg-easy.rule: Host(`wg-easy.${DOMAIN_PUBLIC}`)
