@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Enter the Code</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            touch-action: manipulation;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 28px 32px;
+            width: min(360px, 92vw);
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        h1 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+        }
+
+        .padlock {
+            font-size: 64px;
+            margin: 12px 0 20px;
+            transition: transform 0.6s ease;
+        }
+
+        .padlock.unlock {
+            transform: rotate(-20deg) translateY(-6px);
+        }
+
+        .dials {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+            gap: 10px;
+        }
+
+        .dial {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .arrow {
+            width: 48px;
+            height: 32px;
+            border-radius: 8px;
+            border: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .arrow:active {
+            transform: scale(0.95);
+        }
+
+        .value {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            user-select: none;
+        }
+
+        button#unlock {
+            margin-top: 12px;
+            width: 100%;
+            padding: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            color: #fff;
+        }
+
+        button#unlock:active {
+            transform: scale(0.98);
+        }
+
+        .result {
+            margin-top: 14px;
+            min-height: 1.2em;
+            font-weight: 500;
+        }
+
+        .success {
+            color: #7CFF7C;
+        }
+
+        .error {
+            color: #FF7C7C;
+        }
+
+        @media (max-width: 400px) {
+            .value {
+                width: 56px;
+                height: 56px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Enter the Combination</h1>
+        <div id="padlock" class="padlock">🔒</div>
+
+        <div class="dials">
+            <div class="dial" data-index="0">
+                <button class="arrow up">▲</button>
+                <div class="value">0</div>
+                <button class="arrow down">▼</button>
+            </div>
+            <div class="dial" data-index="1">
+                <button class="arrow up">▲</button>
+                <div class="value">0</div>
+                <button class="arrow down">▼</button>
+            </div>
+            <div class="dial" data-index="2">
+                <button class="arrow up">▲</button>
+                <div class="value">0</div>
+                <button class="arrow down">▼</button>
+            </div>
+            <div class="dial" data-index="3">
+                <button class="arrow up">▲</button>
+                <div class="value">0</div>
+                <button class="arrow down">▼</button>
+            </div>
+        </div>
+
+        <button id="unlock">Unlock</button>
+        <div id="result" class="result"></div>
+
+        <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+        <audio id="unlockSound" src="unlock.mp3" preload="auto"></audio>
+    </div>
+
+    <script>
+        const correctCode = "0554"; // CHANGE THIS
+        const successRedirect = "success-wibble.html"; // CHANGE IF NEEDED
+
+        const padlock = document.getElementById('padlock');
+        const result = document.getElementById('result');
+        const clickSound = document.getElementById('clickSound');
+        const unlockSound = document.getElementById('unlockSound');
+
+        document.querySelectorAll('.dial').forEach(dial => {
+            const valueEl = dial.querySelector('.value');
+
+            dial.querySelector('.up').addEventListener('click', () => {
+                let v = parseInt(valueEl.textContent, 10);
+                v = (v + 1) % 10;
+                valueEl.textContent = v;
+                clickSound.currentTime = 0;
+                clickSound.play();
+            });
+
+            dial.querySelector('.down').addEventListener('click', () => {
+                let v = parseInt(valueEl.textContent, 10);
+                v = (v + 9) % 10;
+                valueEl.textContent = v;
+                clickSound.currentTime = 0;
+                clickSound.play();
+            });
+        });
+
+        document.getElementById('unlock').addEventListener('click', () => {
+            let entered = '';
+            document.querySelectorAll('.value').forEach(v => entered += v.textContent);
+
+            if (entered === correctCode) {
+                padlock.classList.add('unlock');
+                unlockSound.play();
+                result.textContent = 'Unlocked!';
+                result.className = 'result success';
+                setTimeout(() => {
+                    window.location.href = successRedirect;
+                }, 1200);
+            } else {
+                result.textContent = 'Incorrect combination';
+                result.className = 'result error';
+            }
+        });
+    </script>
+</body>
+
+</html>

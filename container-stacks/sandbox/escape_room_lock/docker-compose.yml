@@ -1,0 +1,23 @@
+services:
+
+  escape:
+    container_name: escape_room_lock
+    image: local/escape
+    build: build
+    pull_policy: build
+    ports:
+    - 9876:80
+    networks:
+      reverse_proxy:
+    labels:
+      traefik.enable: true
+      traefik.docker.network: reverse_proxy
+      traefik.http.routers.padlock.entrypoints: websecure
+      traefik.http.routers.padlock.tls: false
+      traefik.http.routers.padlock.rule: Host(`padlock.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.padlock.service: padlock-svc
+      traefik.http.services.padlock-svc.loadbalancer.server.port: 80
+
+networks:
+  reverse_proxy:
+    external: true
