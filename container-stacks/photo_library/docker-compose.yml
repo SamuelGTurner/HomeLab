@@ -20,7 +20,7 @@ services:
       PGID: ${PGID}
       TZ: ${TZ}
       IMMICH_VERSION: ${IMMICH_VERSION}
-      IMMICH_WORKERS_INCLUDE: 'api'
+      # IMMICH_WORKERS_INCLUDE: 'api'
       UPLOAD_LOCATION: ${UPLOAD_LOCATION}
       DB_DATA_LOCATION: ${DB_DATA_LOCATION}
       DB_PASSWORD: ${DB_PASSWORD}
@@ -33,6 +33,7 @@ services:
     container_name: immich_redis
     image: docker.io/valkey/valkey:9@sha256:546304417feac0874c3dd576e0952c6bb8f06bb4093ea0c9ca303c73cf458f63
     restart: unless-stopped
+    command: redis-server --loglevel warning
     ports:
       - '2284:6379'
     environment:
