@@ -1,10 +1,11 @@
-
 # Loads default set of integrations. Do not remove.
 default_config:
 
 # Load frontend themes from the themes folder
 frontend:
   themes: !include_dir_merge_named themes
+  extra_module_url:
+  - /hacsfiles/material-you-utilities/material-you-utilities.min.js
 
 automation: !include automations.yaml
 script: !include scripts.yaml
@@ -13,8 +14,19 @@ scene: !include scenes.yaml
 http:
   use_x_forwarded_for: true
   trusted_proxies:
-    - ::1
-    - 127.0.0.1
-    - 172.16.0.0/12
-    - 192.168.101.0/24
-    - 192.168.100.0/24
+  - ::1
+  - 127.0.0.1
+  - 172.16.0.0/12
+  - 192.168.101.0/24
+  - 192.168.100.0/24
+
+panel_custom:
+- name: material-you-panel
+  url_path: material-you-configuration
+  sidebar_title: Material You Utilities
+  sidebar_icon: mdi:material-design
+  module_url: /hacsfiles/material-you-utilities/material-you-utilities.min.js
+
+tts:
+- platform: picotts
+  language: "en-GB"
