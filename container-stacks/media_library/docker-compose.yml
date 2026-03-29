@@ -10,7 +10,7 @@ services:
       gluetun:
       reverse_proxy:
     volumes:
-    - gluetun:/gluetun
+      - gluetun:/gluetun
     environment:
       TZ: ${TZ}
       VPN_SERVICE_PROVIDER: ${VPN_SERVICE_PROVIDER}
@@ -23,9 +23,9 @@ services:
       HTTPPROXY_USER: ${HTTPPROXY_USER}
       HTTPPROXY_PASSWORD: ${HTTPPROXY_PASSWORD}
     cap_add:
-    - NET_ADMIN
+      - NET_ADMIN
     devices:
-    - /dev/net/tun:/dev/net/tun
+      - /dev/net/tun:/dev/net/tun
     healthcheck:
       test: ping -c 1 www.google.com || exit 1
       interval: 600s
@@ -56,8 +56,8 @@ services:
         condition: service_healthy
         restart: true
     volumes:
-    - qbittorrent:/config
-    - ${PATH_DATA}:/data
+      - qbittorrent:/config
+      - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -74,8 +74,8 @@ services:
         condition: service_healthy
         restart: true
     volumes:
-    - nzbget:/config
-    - ${PATH_DATA}:/data
+      - nzbget:/config
+      - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -90,8 +90,8 @@ services:
       gluetun:
       reverse_proxy:
     volumes:
-    - prowlarr:/config
-    - ${PATH_DATA}:/data
+      - prowlarr:/config
+      - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -112,8 +112,8 @@ services:
       gluetun:
       reverse_proxy:
     volumes:
-    - sonarr:/config
-    - ${PATH_DATA}:/data
+      - sonarr:/config
+      - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -134,8 +134,8 @@ services:
       gluetun:
       reverse_proxy:
     volumes:
-    - radarr:/config
-    - ${PATH_DATA}:/data
+      - radarr:/config
+      - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -155,8 +155,8 @@ services:
     networks:
       reverse_proxy:
     volumes:
-    - bazarr:/config
-    - ${PATH_DATA}:/data
+      - bazarr:/config
+      - ${PATH_DATA}:/data
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -169,29 +169,29 @@ services:
       traefik.http.routers.bazarr.service: bazarr-svc
       traefik.http.services.bazarr-svc.loadbalancer.server.port: 6767
 
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
-    restart: unless-stopped
-    ports:
-    - 7359:7359/udp # autodiscovery
-    networks:
-      reverse_proxy:
-    volumes:
-    - jellyfin:/config
-    - ${PATH_DATA}:/data
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
-      # JELLYFIN_PublishedServerUrl: `media.${DOMAIN_PUBLIC}` #optional
-    labels:
-      traefik.enable: true
-      traefik.http.routers.jellyfin.entrypoints: websecure
-      traefik.http.routers.jellyfin.tls: true
-      traefik.http.routers.jellyfin.rule: Host(`media.${DOMAIN_PUBLIC}`)
-      traefik.http.routers.jellyfin.service: jellyfin-svc
-      traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
+  # jellyfin:
+  #   image: lscr.io/linuxserver/jellyfin:latest
+  #   container_name: jellyfin
+  #   restart: unless-stopped
+  #   ports:
+  #     - 7359:7359/udp # autodiscovery
+  #   networks:
+  #     reverse_proxy:
+  #   volumes:
+  #     - jellyfin:/config
+  #     - ${PATH_DATA}:/data
+  #   environment:
+  #     PUID: ${PUID}
+  #     PGID: ${PGID}
+  #     TZ: ${TZ}
+  #     # JELLYFIN_PublishedServerUrl: `media.${DOMAIN_PUBLIC}` #optional
+  #   labels:
+  #     traefik.enable: true
+  #     traefik.http.routers.jellyfin.entrypoints: websecure
+  #     traefik.http.routers.jellyfin.tls: true
+  #     traefik.http.routers.jellyfin.rule: Host(`media.${DOMAIN_PUBLIC}`)
+  #     traefik.http.routers.jellyfin.service: jellyfin-svc
+  #     traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
 
   tunarr:
     container_name: tunarr
@@ -200,7 +200,7 @@ services:
     networks:
       reverse_proxy:
     volumes:
-    - tunarr:/config
+      - tunarr:/config
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
@@ -240,7 +240,6 @@ services:
       traefik.http.routers.seerr.rule: Host(`seerr.${DOMAIN_PUBLIC}`)
       traefik.http.routers.seerr.service: seerr-svc
       traefik.http.services.seerr-svc.loadbalancer.server.port: 5055
-    
 
 networks:
   gluetun:
