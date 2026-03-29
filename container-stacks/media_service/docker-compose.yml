@@ -13,7 +13,7 @@ services:
       reverse_proxy:
     volumes:
       - jellyfin:/config
-      - ${PATH_DATA}:/data
+      - ${PATH_DATA}:/data/media
     environment:
       PUID: ${PUID}
       PGID: ${PGID}
