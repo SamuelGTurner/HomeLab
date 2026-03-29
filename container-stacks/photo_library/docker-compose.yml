@@ -28,6 +28,13 @@ services:
       DB_DATABASE_NAME: ${DB_DATABASE_NAME}
     healthcheck:
       disable: false
+    labels:
+      traefik.enable: true
+      traefik.http.routers.immich.entrypoints: websecure
+      traefik.http.routers.immich.tls: true
+      traefik.http.routers.immich.rule: Host(`photos.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.immich.service: immich-svc
+      traefik.http.services.immich-svc.loadbalancer.server.port: 8096
 
   redis:
     container_name: immich_redis
