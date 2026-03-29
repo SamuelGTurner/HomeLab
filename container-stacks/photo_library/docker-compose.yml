@@ -12,6 +12,8 @@ services:
         condition: service_healthy
     ports:
       - '2283:2283'
+    networks:
+      reverse_proxy:
     volumes:
       - ${UPLOAD_LOCATION}:/data
       - /etc/localtime:/etc/localtime:ro
@@ -67,3 +69,7 @@ services:
       POSTGRES_DB: ${DB_DATABASE_NAME}
       POSTGRES_INITDB_ARGS: '--data-checksums'
     shm_size: 128mb
+
+networks:
+  reverse_proxy:
+    external: true
