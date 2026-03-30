@@ -169,50 +169,6 @@ services:
       traefik.http.routers.bazarr.service: bazarr-svc
       traefik.http.services.bazarr-svc.loadbalancer.server.port: 6767
 
-  # jellyfin:
-  #   image: lscr.io/linuxserver/jellyfin:latest
-  #   container_name: jellyfin
-  #   restart: unless-stopped
-  #   ports:
-  #     - 7359:7359/udp # autodiscovery
-  #   networks:
-  #     reverse_proxy:
-  #   volumes:
-  #     - jellyfin:/config
-  #     - ${PATH_DATA}:/data
-  #   environment:
-  #     PUID: ${PUID}
-  #     PGID: ${PGID}
-  #     TZ: ${TZ}
-  #     # JELLYFIN_PublishedServerUrl: `media.${DOMAIN_PUBLIC}` #optional
-  #   labels:
-  #     traefik.enable: true
-  #     traefik.http.routers.jellyfin.entrypoints: websecure
-  #     traefik.http.routers.jellyfin.tls: true
-  #     traefik.http.routers.jellyfin.rule: Host(`media.${DOMAIN_PUBLIC}`)
-  #     traefik.http.routers.jellyfin.service: jellyfin-svc
-  #     traefik.http.services.jellyfin-svc.loadbalancer.server.port: 8096
-
-  tunarr:
-    container_name: tunarr
-    image: ghcr.io/chrisbenincasa/tunarr:latest-arm64
-    restart: unless-stopped
-    networks:
-      reverse_proxy:
-    volumes:
-      - tunarr:/config
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
-    labels:
-      traefik.enable: true
-      traefik.http.routers.tunarr.entrypoints: websecure
-      traefik.http.routers.tunarr.tls: false
-      traefik.http.routers.tunarr.rule: Host(`tunarr.${DOMAIN_PUBLIC}`)
-      traefik.http.routers.tunarr.service: tunarr-svc
-      traefik.http.services.tunarr-svc.loadbalancer.server.port: 8000
-
   seerr:
     container_name: seerr
     image: ghcr.io/seerr-team/seerr:latest
@@ -255,6 +211,4 @@ volumes:
   sonarr:
   radarr:
   bazarr:
-  # jellyfin:
-  # tunarr:
   seerr:
