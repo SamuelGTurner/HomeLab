@@ -255,6 +255,6 @@ volumes:
   sonarr:
   radarr:
   bazarr:
-  jellyfin:
-  tunarr:
+  # jellyfin:
+  # tunarr:
   seerr:
