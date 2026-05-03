@@ -20,6 +20,8 @@ services:
     - --entrypoints.websecure.http3
     - --entrypoints.websecure.http.tls=true
     - --entrypoints.websecure.http.tls.certresolver=letsencrypt
+    - --entrypoints.websecure.transport.respondingTimeouts.readTimeout=600s
+    - --entrypoints.websecure.transport.respondingTimeouts.idleTimeout=600s
 
     - --certificatesresolvers.letsencrypt.acme.email=${LETSENCRYPT_EMAIL}
     - --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/letsencrypt.json
