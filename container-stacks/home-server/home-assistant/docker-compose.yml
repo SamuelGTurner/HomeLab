@@ -2,18 +2,18 @@ services:
   # home-assistant
   home-assistant:
     container_name: home-assistant
-    image: "ghcr.io/home-assistant/home-assistant:2026.3.0"
+    image: ghcr.io/home-assistant/home-assistant:2026.3.0
     restart: unless-stopped
     volumes:
-    - home-assistant-data:/config
-    - /etc/localtime:/etc/localtime:ro
-    - /run/dbus:/run/dbus:ro
-    - /dev/ttyUSB0:/dev/ttyUSB0
-    - /dev/ttyACM0:/dev/ttyACM0
+      - home-assistant-data:/config
+      - /etc/localtime:/etc/localtime:ro
+      - /run/dbus:/run/dbus:ro
+      - /dev/ttyUSB0:/dev/ttyUSB0
+      - /dev/ttyACM0:/dev/ttyACM0
     network_mode: host
     privileged: true
     environment:
-    - TZ=$TZ
+      - TZ=$TZ
     labels:
       traefik.enable: true
       # HTTP Routers
