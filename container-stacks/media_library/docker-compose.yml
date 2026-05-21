@@ -197,6 +197,28 @@ services:
       traefik.http.routers.seerr.service: seerr-svc
       traefik.http.services.seerr-svc.loadbalancer.server.port: 5055
 
+  kapowarr:
+    container_name: kapowarr
+    image: mrcas/kapowarr:latest
+    restart: unless-stopped
+    networks:
+      gluetun:
+      reverse_proxy:
+    volumes:
+      - kapowarr:/app/db
+      - ${PATH_DATA}:/data
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.kapowarr.entrypoints: websecure
+      traefik.http.routers.kapowarr.tls: true
+      traefik.http.routers.kapowarr.rule: Host(`kapowarr.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.kapowarr.service: kapowarr-svc
+      traefik.http.services.kapowarr-svc.loadbalancer.server.port: 5656
+
 networks:
   gluetun:
     name: gluetun
@@ -212,3 +234,4 @@ volumes:
   radarr:
   bazarr:
   seerr:
+  kapowarr:    
