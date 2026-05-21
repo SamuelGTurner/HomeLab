@@ -1,0 +1,22 @@
+services:
+  bentopdf:
+    image: ghcr.io/alam00000/bentopdf-simple:latest
+    container_name: bentopdf
+    restart: unless-stopped
+    networks:
+      reverse_proxy:
+    environment:
+      PUID: ${PUID}
+      PGID: ${PGID}
+      TZ: ${TZ}
+    labels:
+      traefik.enable: true
+      traefik.http.routers.bentopdf.entrypoints: websecure
+      traefik.http.routers.bentopdf.tls: true
+      traefik.http.routers.bentopdf.rule: Host(`bentopdf.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.bentopdf.service: bentopdf-svc
+      traefik.http.services.bentopdf-svc.loadbalancer.server.port: 8080
+
+networks:
+  reverse_proxy:
+    external: true
