@@ -1,7 +1,7 @@
 services:
   ais-catcher:
     container_name: ais-catcher
-    image: ghcr.io/jvde-github/ais-catcher-control:edge
+    image: ghcr.io/samuelgturner/ais-catcher-control:edge
     restart: unless-stopped
     volumes:
       - /dev/bus/usb:/dev/bus/usb
