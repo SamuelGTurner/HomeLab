@@ -93,6 +93,10 @@ services:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
     restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
     networks:
       gluetun:
       reverse_proxy:
@@ -115,6 +119,10 @@ services:
     container_name: sonarr
     image: lscr.io/linuxserver/sonarr:latest
     restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
     networks:
       gluetun:
       reverse_proxy:
@@ -137,6 +145,10 @@ services:
     image: lscr.io/linuxserver/radarr:latest
     container_name: radarr
     restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
     networks:
       gluetun:
       reverse_proxy:
@@ -180,8 +192,13 @@ services:
     container_name: seerr
     image: ghcr.io/seerr-team/seerr:latest
     restart: unless-stopped
+    depends_on:
+      gluetun:
+        condition: service_healthy
+        restart: true
     init: true
     networks:
+      gluetun:
       reverse_proxy:
     volumes:
       - seerr:/app/config
