@@ -89,23 +89,6 @@ services:
       TZ: ${TZ}
     network_mode: service:gluetun
 
-  kapowarr:
-    container_name: kapowarr
-    image: mrcas/kapowarr:latest
-    restart: unless-stopped
-    depends_on:
-      gluetun:
-        condition: service_healthy
-        restart: true
-    volumes:
-      - kapowarr:/app/db
-      - ${PATH_DATA}:/data
-    environment:
-      PUID: ${PUID}
-      PGID: ${PGID}
-      TZ: ${TZ}
-    network_mode: service:gluetun
-
   prowlarr:
     container_name: prowlarr
     image: lscr.io/linuxserver/prowlarr:latest
