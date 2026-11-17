@@ -1,0 +1,26 @@
+services:
+  dockhand:
+    image: fnsys/dockhand:latest
+    container_name: dockhand
+    restart: unless-stopped
+    group_add:
+      - 992
+    networks:
+      reverse_proxy:
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - dockhand_data:/app/data
+    labels:
+      traefik.enable: true
+      traefik.http.routers.dockhand.entrypoints: websecure
+      traefik.http.routers.dockhand.tls: true
+      traefik.http.routers.dockhand.rule: Host(`dockhand.${DOMAIN_PUBLIC}`)
+      traefik.http.routers.dockhand.service: dockhand-svc
+      traefik.http.services.dockhand-svc.loadbalancer.server.port: 3000
+
+networks:
+  reverse_proxy:
+    external: true
+
+volumes:
+  dockhand_data:
